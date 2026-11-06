@@ -1,0 +1,9 @@
+.portal-home {
+  flex-shrink: 0;
+}
+
+.portal-home:focus-visible,
+.portal-exit:focus-visible {
+  outline: 2px solid #6f516f;
+  outline-offset: 2px;
+}

@@ -1,0 +1,97 @@
+<cb-site-header [nav]="content()?.nav ?? []" [siteName]="content()?.name ?? 'Casa Círculo de Brujas'" />
+
+<main>
+  <section class="hero">
+    <div class="hero__inner">
+      @if (content(); as c) {
+        <div class="hero__copy">
+          <p class="cb-eyebrow">{{ c.eyebrow }}</p>
+          <h1 class="hero__title">
+            @for (line of c.heroTitleLines; track line) {
+              <span class="hero__title-line">{{ line }}</span>
+            }
+          </h1>
+          <p class="hero__intro">{{ c.heroIntro }}</p>
+
+          <div class="hero__actions">
+            <a class="cb-btn" routerLink="/" fragment="nuestra-casa">
+              Conoce nuestra casa
+              <cb-icon name="arrow-right" [size]="18" />
+            </a>
+            <a class="cb-link" href="#" (click)="$event.preventDefault()">
+              Brujas Nuevas
+              <cb-icon name="arrow-up-right" [size]="16" />
+            </a>
+          </div>
+
+          <p class="hero__meta">{{ c.city }} · Desde {{ c.since }}</p>
+        </div>
+
+        <cb-brand-panel class="hero__panel" />
+      } @else {
+        <div class="hero__copy" aria-busy="true">
+          <span class="sk sk--line" style="width: 220px"></span>
+          <span class="sk sk--title"></span>
+          <span class="sk sk--line" style="width: 90%"></span>
+          <span class="sk sk--line" style="width: 70%"></span>
+        </div>
+        <div class="hero__panel sk sk--panel"></div>
+      }
+    </div>
+  </section>
+
+  @if (content(); as c) {
+    <div class="strip">
+      <div class="strip__inner">
+        <p>{{ c.stripText }}</p>
+        <cb-icon name="simbolos" [size]="22" [stroke]="1.4" />
+      </div>
+    </div>
+
+    <section class="about" id="nuestra-casa">
+      <div class="about__inner">
+        <div class="about__head">
+          <div>
+            <p class="cb-eyebrow">{{ c.aboutEyebrow }}</p>
+            <h2 class="about__title">{{ c.aboutTitle }}</h2>
+          </div>
+          <div class="about__text">
+            <p>{{ c.aboutText }}</p>
+            <a class="cb-link" href="#" (click)="$event.preventDefault()">
+              Acércate al Círculo de brujas
+              <cb-icon name="arrow-up-right" [size]="16" />
+            </a>
+          </div>
+        </div>
+
+        <div class="paths__head">
+          <p class="cb-eyebrow">Caminos de conocimiento</p>
+          <p class="paths__note">Distintas puertas, una misma casa.</p>
+        </div>
+
+        <ul class="paths">
+          @for (path of c.paths; track path.id) {
+            <li class="path">
+              <cb-icon [name]="path.icon" [size]="26" [stroke]="1.4" />
+              <h3 class="path__title">{{ path.title }}</h3>
+              <p class="path__desc">{{ path.description }}</p>
+            </li>
+          }
+        </ul>
+      </div>
+    </section>
+  } @else {
+    <div class="strip"><div class="strip__inner"></div></div>
+    <section class="about">
+      <div class="about__inner" aria-busy="true">
+        <span class="sk sk--line" style="width: 160px"></span>
+        <span class="sk sk--title" style="width: 55%"></span>
+        <ul class="paths">
+          @for (s of skeletons; track $index) {
+            <li class="path"><span class="sk sk--line" style="width: 70%"></span></li>
+          }
+        </ul>
+      </div>
+    </section>
+  }
+</main>

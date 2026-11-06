@@ -1,0 +1,39 @@
+{
+  "name": "circulo-de-brujas-prototipo",
+  "version": "0.1.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "styles:portal": "node tools/styles-portal.mjs",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:e2e": "node tools/e2e.mjs",
+    "build:pages": "ng build --configuration production,github-pages && node tools/finalize-pages.mjs"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "20.3.35",
+    "@angular/compiler": "20.3.35",
+    "@angular/core": "20.3.35",
+    "@angular/forms": "20.3.35",
+    "@angular/platform-browser": "20.3.35",
+    "@angular/router": "20.3.35",
+    "rxjs": "7.8.2",
+    "tslib": "2.9.1",
+    "zone.js": "0.15.1"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "20.3.35",
+    "typescript": "5.9.3",
+    "@playwright/test": "1.65.0",
+    "tailwindcss": "3.4.19",
+    "postcss": "8.5.32",
+    "@angular/cli": "20.3.35",
+    "@angular/build": "20.3.35"
+  },
+  "type": "module",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0"
+  }
+}

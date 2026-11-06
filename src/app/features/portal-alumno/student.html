@@ -1,0 +1,693 @@
+@let isSidebarOpen = state.isSidebarOpen; @let isMobileMenuOpen =
+state.isMobileMenuOpen; @let showNotifications = state.showNotifications; @let
+activityFilterType =
+state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
+= state.navigationView(); @let courseParentCurrent = (navigationView ===
+"cursos-actuales" || navigationView === "cursos-pasados") && !(openMenus.cursos
+&& isSidebarOpen); @let activityParentCurrent = navigationView ===
+"actividades-mes" && (activityFilterType === "Todos" || !(openMenus.actividades
+&& isSidebarOpen));
+<div
+  class="flex h-[100dvh] bg-slate-100 font-sans text-slate-900 selection:bg-[#6F516F]/20 overflow-hidden w-full"
+>
+  @if (isMobileMenuOpen) {
+  <div
+    class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 md:hidden transition-opacity"
+    (click)="setIsMobileMenuOpen(false)"
+  ></div>
+  }
+  <aside
+    [class]="`fixed md:relative inset-y-0 left-0 flex flex-col h-full max-w-[calc(100vw-16px)] shrink-0 bg-white border-r border-slate-200 shadow-2xl md:shadow-sm transition-transform md:transition-all duration-300 ease-in-out z-50 transform ${ isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0' } ${isSidebarOpen ? 'w-72' : 'md:w-20 w-72'}`"
+  >
+    <div
+      [class]="`flex items-center p-4 ${isSidebarOpen ? 'justify-between md:justify-end' : 'justify-center'}`"
+    >
+      <button
+        (click)="setIsMobileMenuOpen(false)"
+        aria-label="Cerrar menú"
+        class="md:hidden p-2 rounded-lg text-slate-400 hover:text-slate-700 bg-slate-50 transition-colors focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-x"
+        >
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+      <button
+        (click)="toggleSidebar()"
+        class="hidden md:flex p-1.5 rounded-lg text-slate-400 hover:text-[#6F516F] hover:bg-slate-100 transition-colors focus:outline-none min-h-[44px] min-w-[44px] items-center justify-center"
+        [title]='isSidebarOpen ? "Colapsar menú" : "Expandir menú"'
+      >
+        @if (isSidebarOpen) {
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-left"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        } @else {
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-right"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+        }
+      </button>
+    </div>
+    <div
+      (click)="setActiveView('dashboard'); setOpenMenus({ cursos: false, actividades: false });"
+      [class]="`flex flex-col items-center transition-all duration-300 cursor-pointer hover:bg-slate-50 rounded-2xl mx-3 pt-2 ${isSidebarOpen ? 'px-4 pb-5' : 'px-0 pb-4'}`"
+      title="Volver al inicio"
+    >
+      <div class="relative">
+        <img
+          src="assets/profiles/elyann.jpg"
+          alt="Foto del alumno"
+          [class]="`relative rounded-full object-cover border-2 border-white shadow-sm transition-all duration-300 ${ isSidebarOpen ? 'w-20 h-20 mb-3' : 'w-10 h-10' }`"
+        />
+      </div>
+      <div
+        [class]="`flex flex-col items-center overflow-hidden transition-all duration-300 ${isSidebarOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`"
+      >
+        <h2 class="text-lg font-bold text-slate-900 whitespace-nowrap">
+          Sofia Ramírez
+        </h2>
+        <span
+          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#6F516F]/10 text-[#6F516F] mt-1 whitespace-nowrap"
+          >Principiante</span
+        >
+        <span class="text-xs font-medium text-slate-500 mt-2 whitespace-nowrap"
+          >Matrícula: <span class="text-slate-700 font-bold">10293847</span>
+        </span>
+      </div>
+    </div>
+    <div class="px-6 mb-4 mt-2">
+      <hr class="border-slate-100" />
+    </div>
+    <nav class="flex-1 overflow-y-auto px-4 space-y-1 custom-scrollbar pb-6">
+      <div>
+        <button
+          (click)="toggleMenu('cursos')"
+          aria-label="Cursos"
+          [attr.aria-expanded]="openMenus.cursos && isSidebarOpen"
+          [attr.aria-current]="courseParentCurrent ? 'page' : null"
+          [class]="`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${courseParentCurrent ? 'bg-[#6F516F]/15 text-[#6F516F] font-bold' : 'font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`"
+        >
+          <div class="flex items-center gap-3">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              [class]="'lucide lucide-book-open ' + (courseParentCurrent ? 'text-[#6F516F]' : 'text-slate-400')"
+            >
+              <path d="M12 5v16" />
+              <path
+                d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"
+              />
+            </svg>
+            <span
+              [class]="`whitespace-nowrap transition-all duration-300 ${isSidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0 hidden'}`"
+              >Cursos</span
+            >
+          </div>
+          @if (isSidebarOpen) {
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [class]="'lucide lucide-chevron-down ' + (`transition-transform duration-300 ${openMenus.cursos ? 'rotate-180 text-[#6F516F]' : 'text-slate-400'}`)"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+          }
+        </button>
+        <div
+          [attr.inert]="openMenus.cursos && isSidebarOpen ? null : ''"
+          [class]="`overflow-hidden transition-all duration-300 ease-in-out ${openMenus.cursos &amp;&amp; isSidebarOpen ? 'max-h-48 opacity-100 mt-1' : 'max-h-0 opacity-0'}`"
+        >
+          <ul class="pl-11 pr-2 space-y-1 pb-2">
+            <li>
+              <button
+                (click)="setActiveView('cursos-actuales')"
+                [attr.aria-current]="openMenus.cursos && isSidebarOpen && navigationView === 'cursos-actuales' ? 'page' : null"
+                [class]="`w-full flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg transition-all ${navigationView === 'cursos-actuales' ? 'text-[#6F516F] bg-[#6F516F]/15 font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100'}`"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [class]="'lucide lucide-circle-play ' + (navigationView === 'cursos-actuales' ? 'text-[#6F516F]' : 'text-slate-400')"
+                >
+                  <path
+                    d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"
+                  />
+                  <circle cx="12" cy="12" r="10" /></svg
+                >Actuales
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="setActiveView('cursos-pasados')"
+                [attr.aria-current]="openMenus.cursos && isSidebarOpen && navigationView === 'cursos-pasados' ? 'page' : null"
+                [class]="`w-full flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg transition-all ${navigationView === 'cursos-pasados' ? 'text-[#6F516F] bg-[#6F516F]/15 font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100'}`"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [class]="'lucide lucide-history ' + (navigationView === 'cursos-pasados' ? 'text-[#6F516F]' : 'text-slate-400')"
+                >
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                  <path d="M3 3v5h5" />
+                  <path d="M12 7v5l4 2" /></svg
+                >Pasados
+              </button>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center gap-2.5 py-2 px-3 text-sm font-medium text-slate-500 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-circle-check text-slate-400"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="m16 9-5.5 5.5L8 12" /></svg
+                >Inscritos</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button
+        (click)="setActiveView('pagos'); setOpenMenus({ cursos: false, actividades: false });"
+        [attr.aria-current]="navigationView === 'pagos' ? 'page' : null"
+        [class]="`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 mt-1 ${navigationView === 'pagos' ? 'bg-[#6F516F]/15 text-[#6F516F] font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 group'}`"
+      >
+        <div class="flex items-center gap-3">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [class]="'lucide lucide-credit-card ' + (navigationView === 'pagos' ? 'text-[#6F516F]' : 'text-slate-400 group-hover:text-slate-600 transition-colors')"
+          >
+            <rect width="20" height="14" x="2" y="5" rx="2" />
+            <line x1="2" x2="22" y1="10" y2="10" />
+            <path d="M6 14h2" />
+          </svg>
+          <span
+            [class]="`whitespace-nowrap transition-all duration-300 ${isSidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0 hidden'}`"
+            >Pagos</span
+          >
+        </div>
+      </button>
+      <div>
+        <button
+          (click)="toggleMenu('actividades')"
+          aria-label="Actividades del mes"
+          [attr.aria-expanded]="openMenus.actividades && isSidebarOpen"
+          [attr.aria-current]="activityParentCurrent ? 'page' : null"
+          [class]="`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 mt-1 ${activityParentCurrent ? 'bg-[#6F516F]/15 text-[#6F516F] font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`"
+        >
+          <div class="flex items-center gap-3">
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              [class]="'lucide lucide-calendar-days ' + (activityParentCurrent ? 'text-[#6F516F]' : 'text-slate-400')"
+            >
+              <path d="M8 2v3" />
+              <path d="M16 2v3" />
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M3 9h18" />
+              <path d="M8 13h.01" />
+              <path d="M12 13h.01" />
+              <path d="M16 13h.01" />
+              <path d="M8 17h.01" />
+              <path d="M12 17h.01" />
+              <path d="M16 17h.01" />
+            </svg>
+            <span
+              [class]="`whitespace-nowrap transition-all duration-300 ${isSidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0 hidden'}`"
+              >Actividades del mes</span
+            >
+          </div>
+          @if (isSidebarOpen) {
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [class]="'lucide lucide-chevron-down ' + (`transition-transform duration-300 ${openMenus.actividades ? 'rotate-180 text-[#6F516F]' : 'text-slate-400'}`)"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+          }
+        </button>
+        <div
+          [attr.inert]="openMenus.actividades && isSidebarOpen ? null : ''"
+          [class]="`overflow-hidden transition-all duration-300 ease-in-out ${openMenus.actividades &amp;&amp; isSidebarOpen ? 'max-h-80 opacity-100 mt-1' : 'max-h-0 opacity-0'}`"
+        >
+          <ul class="pl-11 pr-2 space-y-1 pb-2">
+            <li>
+              <button
+                (click)="setActiveView('actividades-mes'); setActivityFilterType('Taller'); setActivityCurrentPage(1);"
+                [attr.aria-current]="openMenus.actividades && isSidebarOpen && navigationView === 'actividades-mes' && activityFilterType === 'Taller' ? 'page' : null"
+                [class]="`w-full flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg transition-all ${activityFilterType === 'Taller' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F] bg-[#6F516F]/15 font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 group'}`"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [class]="'lucide lucide-wrench ' + (activityFilterType === 'Taller' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F]' : 'text-slate-400 group-hover:text-slate-600')"
+                >
+                  <path
+                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"
+                  /></svg
+                >Talleres
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="setActiveView('actividades-mes'); setActivityFilterType('Ritual'); setActivityCurrentPage(1);"
+                [attr.aria-current]="openMenus.actividades && isSidebarOpen && navigationView === 'actividades-mes' && activityFilterType === 'Ritual' ? 'page' : null"
+                [class]="`w-full flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg transition-all ${activityFilterType === 'Ritual' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F] bg-[#6F516F]/15 font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 group'}`"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [class]="'lucide lucide-flame ' + (activityFilterType === 'Ritual' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F]' : 'text-slate-400 group-hover:text-slate-600')"
+                >
+                  <path
+                    d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4"
+                  /></svg
+                >Rituales
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="setActiveView('actividades-mes'); setActivityFilterType('Lectura'); setActivityCurrentPage(1);"
+                [attr.aria-current]="openMenus.actividades && isSidebarOpen && navigationView === 'actividades-mes' && activityFilterType === 'Lectura' ? 'page' : null"
+                [class]="`w-full flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg transition-all ${activityFilterType === 'Lectura' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F] bg-[#6F516F]/15 font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 group'}`"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [class]="'lucide lucide-book-a ' + (activityFilterType === 'Lectura' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F]' : 'text-slate-400 group-hover:text-slate-600')"
+                >
+                  <path
+                    d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"
+                  />
+                  <path d="m8 13 4-7 4 7" />
+                  <path d="M9.1 11h5.7" /></svg
+                >Lecturas
+              </button>
+            </li>
+            <li>
+              <button
+                (click)="setActiveView('actividades-mes'); setActivityFilterType('Curso'); setActivityCurrentPage(1);"
+                [attr.aria-current]="openMenus.actividades && isSidebarOpen && navigationView === 'actividades-mes' && activityFilterType === 'Curso' ? 'page' : null"
+                [class]="`w-full flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg transition-all ${activityFilterType === 'Curso' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F] bg-[#6F516F]/15 font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 group'}`"
+              >
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  [class]="'lucide lucide-graduation-cap ' + (activityFilterType === 'Curso' &amp;&amp; navigationView === 'actividades-mes' ? 'text-[#6F516F]' : 'text-slate-400 group-hover:text-slate-600')"
+                >
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Curso
+              </button>
+            </li>
+            @for (option of [{ type: "Actividad", label: "Actividades" }, {
+            type: "Servicio", label: "Servicios" }]; track option.type) {
+            <li>
+              <button
+                type="button"
+                (click)="setActiveView('actividades-mes'); setActivityFilterType(option.type); setActivityCurrentPage(1);"
+                [attr.aria-current]="openMenus.actividades && isSidebarOpen && navigationView === 'actividades-mes' && activityFilterType === option.type ? 'page' : null"
+                [class]="activityFilterType === option.type && navigationView === 'actividades-mes' ? 'w-full text-left flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg text-[#6F516F] bg-[#6F516F]/15 font-bold ring-1 ring-[#6F516F]/20' : 'w-full text-left flex items-center gap-2.5 py-2 px-3 text-sm rounded-lg font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100'"
+              >
+                <svg
+                  aria-hidden="true"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="shrink-0"
+                >
+                  @if (option.type === "Actividad") {
+                  <rect x="3" y="5" width="18" height="16" rx="2" />
+                  <path d="M16 3v4M8 3v4M3 10h18m-13 5h2m4 0h2" />
+                  } @else {
+                  <rect x="3" y="7" width="18" height="14" rx="2" />
+                  <path
+                    d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18m-11 0v2h4v-2"
+                  />
+                  }
+                </svg>
+                {{ option.label }}
+              </button>
+            </li>
+            }
+          </ul>
+        </div>
+      </div>
+      <button
+        (click)="setActiveView('maestros'); setOpenMenus({ cursos: false, actividades: false });"
+        [attr.aria-current]="navigationView === 'maestros' ? 'page' : null"
+        [class]="`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 mt-1 ${navigationView === 'maestros' ? 'bg-[#6F516F]/15 text-[#6F516F] font-bold shadow-sm ring-1 ring-[#6F516F]/20' : 'font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 group'}`"
+      >
+        <div class="flex items-center gap-3">
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [class]="'lucide lucide-users ' + (navigationView === 'maestros' ? 'text-[#6F516F]' : 'text-slate-400 group-hover:text-slate-600 transition-colors')"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <circle cx="9" cy="7" r="4" />
+          </svg>
+          <span
+            [class]="`whitespace-nowrap transition-all duration-300 ${isSidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0 hidden'}`"
+            >Maestros</span
+          >
+        </div>
+      </button>
+    </nav>
+    <div class="p-4 border-t border-slate-100 mt-auto">
+      <a
+        href="#"
+        class="flex items-center gap-3 p-3 rounded-xl font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors group min-h-[44px]"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-settings text-slate-400 group-hover:text-slate-600 transition-colors"
+        >
+          <path
+            d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
+          />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        <span
+          [class]="`whitespace-nowrap transition-all duration-300 ${isSidebarOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0 hidden'}`"
+          >Configuración</span
+        >
+      </a>
+    </div>
+  </aside>
+  <main
+    class="flex-1 flex flex-col h-full min-w-0 overflow-hidden bg-transparent w-full"
+  >
+    <header
+      class="relative px-3 sm:px-6 py-2 flex items-center gap-2 z-30 bg-slate-100 md:bg-transparent"
+    >
+      <button
+        (click)="setIsMobileMenuOpen(true)"
+        aria-label="Abrir menú"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        class="md:hidden p-2 text-slate-500 hover:text-slate-800 focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-menu"
+        >
+          <path d="M4 5h16" />
+          <path d="M4 12h16" />
+          <path d="M4 19h16" />
+        </svg>
+      </button>
+      <a class="portal-home" routerLink="/" aria-label="Círculo de Brujas, ir al inicio">
+        <img
+          src="assets/brand/circulo-de-brujas.png"
+          alt="Círculo de Brujas"
+          width="248"
+          height="248"
+          class="h-12 w-12 object-contain sm:h-14 sm:w-14"
+        />
+      </a>
+      <div class="relative ml-auto flex items-center gap-2" #notifications>
+        <button
+          (click)="setShowNotifications(!showNotifications)"
+          class="relative p-2.5 text-slate-500 hover:text-[#6F516F] bg-white md:bg-transparent md:hover:bg-slate-200/50 rounded-full shadow-sm md:shadow-none border border-slate-200 md:border-transparent transition-all focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
+          title="Notificaciones"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-bell"
+          >
+            <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+            <path
+              d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+            />
+          </svg>
+          <span
+            class="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white md:border-slate-100"
+          >
+          </span>
+        </button>
+        <div
+          [class]="`absolute right-0 top-12 mt-2 w-80 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50 transition-all duration-200 origin-top-right ${ showNotifications ? 'transform scale-100 opacity-100' : 'transform scale-95 opacity-0 pointer-events-none' }`"
+        >
+          <div
+            class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50"
+          >
+            <h3 class="font-bold text-slate-800">Notificaciones</h3>
+            <span
+              class="text-xs font-bold bg-[#6F516F]/10 text-[#6F516F] px-2 py-1 rounded-full"
+              >3 nuevas</span
+            >
+          </div>
+          <ul class="max-h-80 overflow-y-auto custom-scrollbar">
+            <li
+              class="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer"
+            >
+              <p class="text-sm font-bold text-slate-800">
+                Nuevo ritual añadido
+              </p>
+              <p class="text-sm text-slate-600 mt-1">
+                Se ha programado el "Ritual de Luna Llena".
+              </p>
+              <p class="text-xs text-slate-400 mt-2 font-medium">
+                Hace 2 horas
+              </p>
+            </li>
+            <li
+              class="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer"
+            >
+              <p class="text-sm font-bold text-slate-800">Pago confirmado</p>
+              <p class="text-sm text-slate-600 mt-1">
+                Tu pago para el curso de Tarot ha sido procesado.
+              </p>
+              <p class="text-xs text-slate-400 mt-2 font-medium">
+                Hace 5 horas
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="h-6 w-px bg-slate-200 mx-1 md:block hidden"></div>
+        <button
+          class="portal-exit relative p-2.5 text-slate-500 hover:text-red-600 bg-white md:bg-transparent md:hover:bg-red-50 rounded-full shadow-sm md:shadow-none border border-slate-200 md:border-transparent transition-all focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
+          type="button"
+          routerLink="/"
+          [replaceUrl]="true"
+          aria-label="Cerrar sesión"
+          title="Cerrar sesión"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-log-out"
+          >
+            <path d="m16 17 5-5-5-5" />
+            <path d="M21 12H9" />
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          </svg>
+        </button>
+      </div>
+    </header>
+    <div
+      class="flex-1 bg-white mx-0 sm:mx-6 mb-0 sm:mb-6 mt-0 rounded-none sm:rounded-3xl border-t sm:border border-slate-200 shadow-sm overflow-hidden flex flex-col relative z-0"
+    >
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 custom-scrollbar">
+        @if (state.hasLoadError()) {
+        <p role="alert" class="mb-4 text-red-700">
+          No se pudieron cargar los datos del portal.
+        </p>
+        }
+        <router-outlet />
+      </div>
+    </div>
+  </main>
+</div>
+

@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  position: relative;
+  z-index: 10;
+  background: var(--cb-bg);
+}
+
+.header__bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  max-width: calc(var(--cb-container) + var(--cb-gutter) * 2);
+  margin: 0 auto;
+  padding: 24px var(--cb-gutter) 0;
+  min-height: 96px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  justify-self: start;
+
+  &__logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  &__name {
+    font-family: var(--cb-font-display);
+    font-size: 24px;
+    font-style: italic;
+    color: var(--cb-ink);
+    white-space: nowrap;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  &__link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cb-ink);
+    padding: 6px 0;
+
+    &:hover {
+      color: var(--cb-accent);
+    }
+
+    &--active {
+      color: var(--cb-accent);
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-self: end;
+}
+
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--cb-muted);
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .brand__name {
+    font-size: 20px;
+  }
+
+  .nav {
+    gap: 18px;
+  }
+}
+
+@media (max-width: 960px) {
+  .header__bar {
+    grid-template-columns: 1fr auto;
+    padding-top: 12px;
+    min-height: 72px;
+  }
+
+  .brand__name,
+  .nav {
+    display: none;
+  }
+
+  .brand__logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 8px var(--cb-gutter) 20px;
+    border-bottom: 1px solid var(--cb-line);
+
+    &__link {
+      padding: 14px 0;
+      font-size: 15px;
+      font-weight: 500;
+      border-top: 1px solid var(--cb-line);
+
+      &:hover {
+        color: var(--cb-accent);
+      }
+    }
+  }
+}

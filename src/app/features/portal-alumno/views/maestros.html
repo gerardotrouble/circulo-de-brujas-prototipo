@@ -1,0 +1,168 @@
+@let mysticPatternStyle = state.mysticPatternStyle; @let Math = state.Math; @let
+maestrosCurrentPage = state.maestrosCurrentPage; @let teacherDirectory =
+state.teacherDirectory; @let section = teacherDirectory(); @let filteredMaestros
+= section.filteredMaestros; @let totalMaestrosPages =
+section.totalMaestrosPages; @let idxLastMaestro = section.idxLastMaestro; @let
+idxFirstMaestro = section.idxFirstMaestro; @let currentMaestros =
+section.currentMaestros;
+<div
+  class="animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col min-h-full"
+>
+  <header
+    class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4"
+  >
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900">Nuestros Maestros</h1>
+      <p class="text-slate-500 mt-1">
+        Conoce a los guías e instructores de Casa Círculo de Brujas.
+      </p>
+    </div>
+    <div class="relative w-full sm:w-72 shrink-0">
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+      >
+        <path d="m21 21-4.34-4.34" />
+        <circle cx="11" cy="11" r="8" />
+      </svg>
+      <input
+        type="text"
+        placeholder="Buscar nombre o especialidad..."
+        class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#6F516F]/20 focus:border-[#6F516F] transition-all text-sm shadow-sm"
+        [formControl]="state.maestrosSearchQueryControl"
+      />
+    </div>
+  </header>
+  @if (currentMaestros.length > 0) {
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pb-6">
+    @for (maestro of currentMaestros; track maestro.id) {
+    <div
+      (click)="openMaestro(maestro)"
+      class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group flex flex-col items-center text-center p-8 relative cursor-pointer"
+      [style]="mysticPatternStyle"
+    >
+      <span
+        [class]="`text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-sm border ${ maestro.rol === 'Directora' || maestro.rol === 'Maestro Fundador'  ? 'bg-[#6F516F] text-white border-[#6F516F]'  : 'bg-white text-slate-600 border-slate-200' }`"
+        >{{ maestro.rol }}</span
+      >
+      <div
+        class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md mb-5 relative z-10 bg-slate-100 mt-6"
+      >
+        <img
+          [src]="maestro.foto"
+          [alt]="maestro.nombre"
+          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+      </div>
+      <h3
+        class="font-serif text-2xl font-bold text-[#3a2b3a] relative z-10 mb-3"
+      >
+        {{ maestro.nombre }}
+      </h3>
+      <div
+        class="w-16 h-[1.5px] bg-[#6F516F]/20 relative z-10 mb-4 rounded-full"
+      ></div>
+      <div class="flex flex-wrap justify-center gap-2 mb-5 relative z-10">
+        @for (esp of maestro.especialidades; track i; let i = $index) {
+        <span
+          class="text-[10px] font-bold text-[#6F516F] uppercase tracking-wider bg-[#6F516F]/5 border border-[#6F516F]/10 px-3 py-1 rounded-md shadow-sm"
+          >{{ esp }}</span
+        >
+        }
+      </div>
+    </div>
+    }
+  </div>
+  @if (totalMaestrosPages > 1) {
+  <div
+    class="flex items-center justify-between pt-6 pb-4 mt-auto border-t border-slate-100"
+  >
+    <span class="text-sm text-slate-500 font-medium hidden sm:inline-block"
+      >Mostrando {{ idxFirstMaestro + 1 }} a {{ Math.min(idxLastMaestro,
+      filteredMaestros.length) }} de {{ filteredMaestros.length }}</span
+    >
+    <div class="flex gap-2 w-full sm:w-auto justify-between sm:justify-end">
+      <button
+        (click)="setMaestrosCurrentPage(Math.max(maestrosCurrentPage - 1, 1))"
+        [disabled]="maestrosCurrentPage === 1"
+        class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#6F516F] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1 text-sm font-semibold shadow-sm"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-left"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Anterior
+      </button>
+      <span
+        class="text-sm font-bold text-slate-700 flex items-center px-2 sm:hidden"
+        >{{ maestrosCurrentPage }} / {{ totalMaestrosPages }}</span
+      >
+      <button
+        (click)="setMaestrosCurrentPage(Math.min(maestrosCurrentPage + 1, totalMaestrosPages))"
+        [disabled]="maestrosCurrentPage === totalMaestrosPages"
+        class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-[#6F516F] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1 text-sm font-semibold shadow-sm"
+      >
+        Siguiente
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-right"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  } } @else {
+  <div
+    class="flex flex-col items-center justify-center text-slate-400 py-12 border border-slate-200 rounded-2xl bg-slate-50/50 mt-4"
+  >
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="lucide lucide-search mb-4 opacity-20"
+    >
+      <path d="m21 21-4.34-4.34" />
+      <circle cx="11" cy="11" r="8" />
+    </svg>
+    <p class="text-lg font-medium text-slate-500">No se encontraron maestros</p>
+    <p class="text-sm">Intenta buscar con otro nombre o especialidad.</p>
+  </div>
+  }
+</div>

@@ -1,0 +1,50 @@
+<header class="header">
+  <div class="header__bar">
+    <a class="brand" routerLink="/" (click)="closeMenu()" aria-label="Ir al inicio">
+      <img class="brand__logo" src="assets/img/logo.png" alt="Círculo de Brujas" />
+      <span class="brand__name">{{ siteName() }}</span>
+    </a>
+
+    <nav class="nav" aria-label="Principal">
+      @for (link of nav(); track link.label; let first = $first) {
+        <a
+          class="nav__link"
+          [class.nav__link--active]="first"
+          [routerLink]="link.route"
+          [fragment]="link.fragment"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="actions">
+      <a class="cb-btn cb-btn--sm" routerLink="/login">Iniciar sesión</a>
+      <button
+        type="button"
+        class="burger"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="menu-movil"
+        [attr.aria-label]="menuOpen() ? 'Cerrar menú' : 'Abrir menú'"
+        (click)="toggleMenu()"
+      >
+        <cb-icon [name]="menuOpen() ? 'close' : 'menu'" [size]="24" [stroke]="1.5" />
+      </button>
+    </div>
+  </div>
+
+  @if (menuOpen()) {
+    <nav id="menu-movil" class="mobile-nav" aria-label="Principal móvil">
+      @for (link of nav(); track link.label) {
+        <a
+          class="mobile-nav__link"
+          [routerLink]="link.route"
+          [fragment]="link.fragment"
+          (click)="closeMenu()"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+  }
+</header>

@@ -1,0 +1,30 @@
+{
+  "name": "Casa Círculo de Brujas",
+  "founder": "Erin Ahra",
+  "city": "Ciudad de México",
+  "since": 2016,
+  "tagline": "A nuestra casa, todas las brujas llegan solas.",
+  "eyebrow": "Estudio · Ritual · Comunidad",
+  "heroTitleLines": ["Somos el", "Círculo de Brujas"],
+  "heroIntro": "Una casa para el estudio del ocultismo, la brujería tradicional, la hechicería y la magia ritual.",
+  "stripText": "Un espacio para conocer, practicar y compartir.",
+  "aboutEyebrow": "Nuestra casa",
+  "aboutTitle": "El conocimiento también es un encuentro.",
+  "aboutText": "Somos un círculo de estudio fundado en Ciudad de México en 2016 por Erin Ahra. Reunimos investigación, práctica espiritual y formación en torno al ocultismo, la brujería tradicional, la hechicería y la magia ritual.",
+  "nav": [
+    { "label": "Inicio", "route": "/" },
+    { "label": "Nuestra Casa", "route": "/", "fragment": "nuestra-casa" },
+    { "label": "Calendario de Actividades", "route": "/", "fragment": "calendario" },
+    { "label": "Últimas Notas", "route": "/", "fragment": "notas" }
+  ],
+  "paths": [
+    { "id": "astrologia", "icon": "astrologia", "title": "Astrología", "description": "El cielo y sus correspondencias." },
+    { "id": "tarot", "icon": "tarot", "title": "Tarot y adivinación", "description": "Lenguajes para leer los símbolos." },
+    { "id": "herbolaria", "icon": "herbolaria", "title": "Herbolaria", "description": "El conocimiento de las plantas." },
+    { "id": "alquimia", "icon": "alquimia", "title": "Ocultismo y alquimia", "description": "Tradiciones de transformación." },
+    { "id": "simbolos", "icon": "simbolos", "title": "Símbolos", "description": "Claves para explorar lo invisible." },
+    { "id": "mitologia", "icon": "mitologia", "title": "Mitología y folklore", "description": "Relatos, memoria y tradición." },
+    { "id": "ciclos", "icon": "ciclos", "title": "Ciclos lunares y solares", "description": "Celebraciones y ritmos de la tierra." },
+    { "id": "herramientas", "icon": "herramientas", "title": "Herramientas mágicas", "description": "Objetos, intención y práctica." }
+  ]
+}

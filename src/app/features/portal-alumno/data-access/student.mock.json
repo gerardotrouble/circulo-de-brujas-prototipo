@@ -1,0 +1,591 @@
+{
+  "current": [
+    {
+      "id": 1,
+      "type": "Curso",
+      "duration": "4 meses",
+      "title": "Tarot Evolutivo y Terapéutico",
+      "instructor": "Erin Ahra",
+      "status": "Al corriente",
+      "schedule": "Martes y Jueves, 18:00 PM",
+      "mode": "En línea",
+      "badge": "En curso",
+      "badgeColor": "text-[#6F516F]",
+      "gradient": "from-[#4A3B4A] to-[#2C242C]",
+      "statusType": "success",
+      "icon": "art-1",
+      "cover": "assets/activities/current-1.png"
+    },
+    {
+      "id": 2,
+      "type": "Taller",
+      "duration": "Pago único",
+      "title": "Magia Herbolaria Aplicada",
+      "instructor": "Diana Lunar",
+      "status": "Pagado",
+      "schedule": "Miércoles 12 Nov, 19:00 PM",
+      "mode": "Presencial",
+      "badge": "Confirmado",
+      "badgeColor": "text-[#8C6D4A]",
+      "gradient": "from-[#3D3333] to-[#8C6D4A]",
+      "statusType": "success",
+      "icon": "art-2",
+      "cover": "assets/activities/current-2.png"
+    },
+    {
+      "id": 3,
+      "type": "Lectura",
+      "duration": "Sesión",
+      "title": "Lectura de Astrología Kármica",
+      "instructor": "Solange Astral",
+      "status": "Pagado",
+      "schedule": "Viernes 28 Nov, 17:00 PM",
+      "mode": "En línea",
+      "badge": "Agendada",
+      "badgeColor": "text-[#4A5D7C]",
+      "gradient": "from-[#1E2532] to-[#364259]",
+      "statusType": "success",
+      "icon": "art-3",
+      "cover": "assets/activities/current-3.png"
+    },
+    {
+      "id": 4,
+      "type": "Curso",
+      "duration": "3 meses",
+      "title": "Defensa Energética y Magia Blanca",
+      "instructor": "Morgana V.",
+      "status": "Se aproxima pago",
+      "schedule": "Sábados, 11:00 AM",
+      "mode": "Presencial",
+      "badge": "En curso",
+      "badgeColor": "text-[#8b704c]",
+      "gradient": "from-[#524430] to-[#917652]",
+      "statusType": "warning",
+      "icon": "art-4",
+      "cover": "assets/activities/current-4.png"
+    },
+    {
+      "id": 5,
+      "type": "Curso",
+      "duration": "6 meses",
+      "title": "Numerología Mágica",
+      "instructor": "Erin Ahra",
+      "status": "Adeudo",
+      "schedule": "Lunes, 10:00 AM",
+      "mode": "En línea",
+      "badge": "En curso",
+      "badgeColor": "text-[#8C4A57]",
+      "gradient": "from-[#542B34] to-[#8C4A57]",
+      "statusType": "danger",
+      "icon": "art-5",
+      "cover": "assets/activities/current-5.png"
+    },
+    {
+      "id": 6,
+      "type": "Ritual",
+      "duration": "Evento",
+      "title": "Ritual de Luna Llena",
+      "instructor": "Diana Lunar",
+      "status": "Pagado",
+      "schedule": "Domingo 15 Nov, 21:00 PM",
+      "mode": "Presencial",
+      "badge": "Confirmado",
+      "badgeColor": "text-[#4B5563]",
+      "gradient": "from-[#1F2937] to-[#111827]",
+      "statusType": "success",
+      "icon": "art-2",
+      "cover": "assets/activities/current-6.png"
+    },
+    {
+      "id": 7,
+      "type": "Taller",
+      "duration": "Pago único",
+      "title": "Creación de Amuletos",
+      "instructor": "Morgana V.",
+      "status": "Pagado",
+      "schedule": "Jueves 20 Nov, 16:00 PM",
+      "mode": "Presencial",
+      "badge": "Confirmado",
+      "badgeColor": "text-[#8b704c]",
+      "gradient": "from-[#524430] to-[#917652]",
+      "statusType": "success",
+      "icon": "art-4",
+      "cover": "assets/activities/current-7.png"
+    },
+    {
+      "id": 8,
+      "type": "Curso",
+      "duration": "3 meses",
+      "title": "Magia de los Cristales",
+      "instructor": "Solange Astral",
+      "status": "Al corriente",
+      "schedule": "Lunes, 18:00 PM",
+      "mode": "En línea",
+      "badge": "En curso",
+      "badgeColor": "text-[#6F516F]",
+      "gradient": "from-[#4A3B4A] to-[#2C242C]",
+      "statusType": "success",
+      "icon": "art-1",
+      "cover": "assets/activities/current-8.png"
+    }
+  ],
+  "past": [
+    {
+      "id": 1,
+      "type": "Curso",
+      "title": "Introducción a la Brujería Tradicional",
+      "instructor": "Erin Ahra",
+      "dateRange": "Ene 2023 - Jun 2023",
+      "gradient": "from-[#2D3748] to-[#1A202C]",
+      "icon": "art-6",
+      "cover": "assets/activities/past-1.png"
+    },
+    {
+      "id": 2,
+      "type": "Taller",
+      "title": "Taller de Velas Mágicas",
+      "instructor": "Morgana V.",
+      "dateRange": "15 de Octubre, 2023",
+      "gradient": "from-[#4A5568] to-[#2D3748]",
+      "icon": "art-7",
+      "cover": "assets/activities/past-2.png"
+    },
+    {
+      "id": 3,
+      "type": "Lectura",
+      "title": "Lectura de Tarot Anual",
+      "instructor": "Solange Astral",
+      "dateRange": "2 de Enero, 2024",
+      "gradient": "from-[#718096] to-[#4A5568]",
+      "icon": "art-1",
+      "cover": "assets/activities/past-3.png"
+    },
+    {
+      "id": 4,
+      "type": "Ritual",
+      "title": "Ritual de Ostara",
+      "instructor": "Diana Lunar",
+      "dateRange": "20 de Marzo, 2024",
+      "gradient": "from-[#2D3748] to-[#1A202C]",
+      "icon": "art-8",
+      "cover": "assets/activities/past-4.png"
+    },
+    {
+      "id": 5,
+      "type": "Curso",
+      "title": "Historia de la Magia",
+      "instructor": "Erin Ahra",
+      "dateRange": "Feb 2024 - May 2024",
+      "gradient": "from-[#4A5568] to-[#2D3748]",
+      "icon": "art-6",
+      "cover": "assets/activities/past-5.png"
+    },
+    {
+      "id": 6,
+      "type": "Taller",
+      "title": "Taller de Sigilos",
+      "instructor": "Morgana V.",
+      "dateRange": "5 de Noviembre, 2023",
+      "gradient": "from-[#718096] to-[#4A5568]",
+      "icon": "art-7",
+      "cover": "assets/activities/past-6.png"
+    },
+    {
+      "id": 7,
+      "type": "Lectura",
+      "title": "Lectura de Carta Astral",
+      "instructor": "Solange Astral",
+      "dateRange": "10 de Diciembre, 2023",
+      "gradient": "from-[#2D3748] to-[#1A202C]",
+      "icon": "art-1",
+      "cover": "assets/activities/past-7.png"
+    }
+  ],
+  "pending": [
+    {
+      "id": 1,
+      "course": "Numerología Mágica",
+      "type": "Mensualidad (Pago 3 de 6)",
+      "amount": "$1,200 MXN",
+      "dueDate": "Venció hace 5 días",
+      "status": "Adeudo",
+      "monthsOwed": 1,
+      "color": "text-red-700",
+      "bg": "bg-red-50",
+      "border": "border-red-200",
+      "icon": "art-9"
+    },
+    {
+      "id": 2,
+      "course": "Defensa Energética y Magia Blanca",
+      "type": "Mensualidad (Pago 2 de 3)",
+      "amount": "$800 MXN",
+      "dueDate": "Vence en 3 días",
+      "status": "Próximo",
+      "monthsOwed": 0,
+      "color": "text-amber-700",
+      "bg": "bg-amber-50",
+      "border": "border-amber-200",
+      "icon": "art-10"
+    }
+  ],
+  "payments": [
+    {
+      "id": 101,
+      "date": "10-Nov-26",
+      "concept": "Mensualidad - Tarot Evolutivo (Pago 4 de 5)",
+      "method": "Tarjeta terminada en 4092",
+      "methodType": "card",
+      "amount": "$1,500 MXN",
+      "status": "Pagado"
+    },
+    {
+      "id": 102,
+      "date": "15-Oct-26",
+      "concept": "Mensualidad - Tarot Evolutivo (Pago 3 de 5)",
+      "method": "Efectivo en recepción",
+      "methodType": "cash",
+      "amount": "$1,500 MXN",
+      "status": "Pagado"
+    },
+    {
+      "id": 103,
+      "date": "12-Oct-26",
+      "concept": "Mensualidad - Taller Magia Herbolaria (Pago único)",
+      "method": "Transferencia SPEI",
+      "methodType": "transfer",
+      "amount": "$600 MXN",
+      "status": "Pagado"
+    },
+    {
+      "id": 104,
+      "date": "10-Sep-26",
+      "concept": "Mensualidad - Tarot Evolutivo (Pago 2 de 5)",
+      "method": "Tarjeta terminada en 4092",
+      "methodType": "card",
+      "amount": "$1,500 MXN",
+      "status": "Pagado"
+    },
+    {
+      "id": 105,
+      "date": "05-Sep-26",
+      "concept": "Mensualidad - Tarot Evolutivo (Pago 1 de 5)",
+      "method": "Efectivo en recepción",
+      "methodType": "cash",
+      "amount": "$1,500 MXN",
+      "status": "Pagado"
+    },
+    {
+      "id": 106,
+      "date": "10-Ago-26",
+      "concept": "Mensualidad - Astrología Kármica (Pago 2 de 3)",
+      "method": "Transferencia SPEI",
+      "methodType": "transfer",
+      "amount": "$1,200 MXN",
+      "status": "Pagado"
+    },
+    {
+      "id": 107,
+      "date": "10-Jul-26",
+      "concept": "Mensualidad - Astrología Kármica (Pago 1 de 3)",
+      "method": "Tarjeta terminada en 4092",
+      "methodType": "card",
+      "amount": "$1,200 MXN",
+      "status": "Pagado"
+    },
+    {
+      "id": 108,
+      "date": "15-Jun-26",
+      "concept": "Lectura - Tarot Anual (Sesión única)",
+      "method": "Efectivo en recepción",
+      "methodType": "cash",
+      "amount": "$800 MXN",
+      "status": "Pagado"
+    }
+  ],
+  "monthly": [
+    {
+      "id": 201,
+      "day": "12",
+      "month": "Noviembre",
+      "time": "10:00 hrs",
+      "type": "Taller",
+      "title": "Magia Herbolaria Aplicada",
+      "instructor": "Diana Lunar",
+      "description": "Aprende a identificar, consagrar y utilizar plantas medicinales y mágicas para la creación de infusiones y ungüentos.",
+      "duration": "4 horas (Sesión única)",
+      "cost": "$600 MXN",
+      "mode": "Presencial",
+      "gradient": "from-[#3D3333] to-[#8C6D4A]",
+      "icon": "art-2",
+      "cover": "assets/activities/current-2.png"
+    },
+    {
+      "id": 202,
+      "day": "12",
+      "month": "Noviembre",
+      "time": "18:00 hrs",
+      "type": "Lectura",
+      "title": "Astrología Kármica y Nodos Lunares",
+      "instructor": "Solange Astral",
+      "description": "Sesión grupal para entender las misiones del alma a través de la lectura de los nodos lunares en tu carta natal.",
+      "duration": "2 horas",
+      "cost": "$800 MXN",
+      "mode": "En línea",
+      "gradient": "from-[#1E2532] to-[#364259]",
+      "icon": "art-3",
+      "cover": "assets/activities/monthly-202.png"
+    },
+    {
+      "id": 203,
+      "day": "15",
+      "month": "Noviembre",
+      "time": "20:00 hrs",
+      "type": "Ritual",
+      "title": "Ritual de Luna Llena en Tauro",
+      "instructor": "Diana Lunar",
+      "description": "Encuentro mensual de meditación y magia para trabajar la abundancia, el merecimiento y la conexión con la tierra.",
+      "duration": "1.5 horas",
+      "cost": "Aportación voluntaria",
+      "mode": "Presencial",
+      "gradient": "from-[#1F2937] to-[#111827]",
+      "icon": "art-2",
+      "cover": "assets/activities/monthly-203.png"
+    },
+    {
+      "id": 204,
+      "day": "20",
+      "month": "Noviembre",
+      "time": "16:00 hrs",
+      "type": "Curso",
+      "title": "Defensa Energética (Inicio)",
+      "instructor": "Erin Ahra",
+      "description": "Apertura del nuevo grupo. Técnicas fundamentales de protección, limpieza de espacios y elaboración de escudos mágicos.",
+      "duration": "3 meses",
+      "cost": "$1,200 MXN / Mes",
+      "mode": "Presencial",
+      "gradient": "from-[#524430] to-[#917652]",
+      "icon": "art-4",
+      "cover": "assets/activities/monthly-204.png"
+    },
+    {
+      "id": 205,
+      "day": "28",
+      "month": "Noviembre",
+      "time": "19:00 hrs",
+      "type": "Taller",
+      "title": "Creación de Amuletos y Sigilos",
+      "instructor": "Morgana V.",
+      "description": "Diseña e intenciona tus propios símbolos de poder mediante el método de la palabra condensada y geometría sagrada.",
+      "duration": "3 horas",
+      "cost": "$500 MXN",
+      "mode": "En línea",
+      "gradient": "from-[#3D3333] to-[#8C6D4A]",
+      "icon": "art-2",
+      "cover": "assets/activities/monthly-205.png"
+    },
+    {
+      "id": 206,
+      "day": "1",
+      "month": "Noviembre",
+      "instructor": "Itah",
+      "gradient": "",
+      "icon": "",
+      "title": "Un Viaje Hacia El Mictlán",
+      "type": "Taller",
+      "time": "12:00 hrs",
+      "duration": "2 horas",
+      "cost": "$200 MXN",
+      "mode": "Presencial",
+      "description": "Descenso simbólico hacia la transformación del alma. Aparta tu lugar. Cupo limitado.",
+      "cover": "assets/activities/mictlan.png",
+      "posterListing": true,
+      "venue": "Floresta 55, col. Clavería, Azcapotzalco, CDMX"
+    },
+    {
+      "id": 207,
+      "day": "7",
+      "month": "Noviembre",
+      "instructor": "",
+      "gradient": "",
+      "icon": "",
+      "title": "Kali · El poder de la transformación",
+      "type": "Actividad",
+      "description": "Destruye lo que te limita. Renace desde tu poder.",
+      "cover": "assets/activities/kali.png",
+      "posterListing": true,
+      "sessionLabel": "7 de noviembre"
+    },
+    {
+      "id": 208,
+      "day": "",
+      "month": "Noviembre",
+      "instructor": "Annia",
+      "gradient": "",
+      "icon": "",
+      "title": "Registros Akáshicos",
+      "type": "Servicio",
+      "duration": "90 min",
+      "cost": "$1,350 MXN",
+      "mode": "Presencial",
+      "description": "Sesión de Registros Akáshicos con Annia. Previa cita, sujeta a disponibilidad de agenda.",
+      "cover": "assets/activities/registros-akashicos.png",
+      "posterListing": true,
+      "venue": "Floresta 55, col. Clavería, Azcapotzalco, CDMX",
+      "sessionLabel": "Jueves, sábados y domingos de noviembre · Previa cita"
+    },
+    {
+      "id": 209,
+      "day": "",
+      "month": "Noviembre",
+      "instructor": "Krabat",
+      "gradient": "",
+      "icon": "",
+      "title": "¡Mañanas de Tarot entre semana!",
+      "type": "Lectura",
+      "time": "10:00 a 14:00 hrs",
+      "duration": "15 min",
+      "cost": "Sin costo · Bajo propina",
+      "mode": "Presencial",
+      "description": "Lecturas rápidas con Krabat. Haz una pregunta. Cada lectura dura 15 minutos. Sin cita, sin costo y bajo propina.",
+      "cover": "assets/activities/mananas-de-tarot.png",
+      "posterListing": true,
+      "venue": "Floresta 55, col. Clavería, Azcapotzalco, CDMX",
+      "sessionLabel": "Miércoles, jueves y viernes de noviembre · 10:00 a 14:00",
+      "additionalTypes": [
+        "Servicio"
+      ],
+      "walkIn": true
+    },
+    {
+      "id": 210,
+      "day": "",
+      "month": "Noviembre",
+      "instructor": "",
+      "gradient": "",
+      "icon": "",
+      "title": "La Casa Crea",
+      "type": "Actividad",
+      "description": "Actividades de noviembre. Nuevas formas de crear, aprender y expresarte en Nuestra Casa.",
+      "cover": "assets/activities/la-casa-crea.png",
+      "posterListing": true,
+      "sessionLabel": "Noviembre"
+    }
+  ],
+  "teachers": [
+    {
+      "id": 1,
+      "nombre": "Erin Ahra",
+      "rol": "Directora",
+      "especialidades": [
+        "Brujería tradicional",
+        "Magia ritual",
+        "Astrología",
+        "Herbolaria Oculta",
+        "Tarot",
+        "Runas",
+        "Teúrgia",
+        "Taumaturgia",
+        "Adivinación"
+      ],
+      "senderos": [
+        "Brujería tradicional",
+        "Sendero de la Mano Izquierda LHP",
+        "Alquimia",
+        "Hermética",
+        "Herbolaria Oculta"
+      ],
+      "descripcion": "Erin es directora y facilitadora de Casa Círculo de Brujas, un espacio cultural y de formación en la Ciudad de México dedicado al estudio y la práctica de la magia, la herbolaria y las tradiciones espirituales. Desde la dirección desarrolla programas de aprendizaje, coordina la oferta académica y acompaña a una comunidad de alumnos y maestros con distintos caminos de estudio. Su trabajo integra temas de hechicería, astrología, simbolismo, mitología, prácticas rituales y uso de plantas y materiales. También desarrolla Magicca Herbals, su proyecto vinculado con la herbolaria y la elaboración de productos. Su enfoque de enseñanza propone comprender los fundamentos de cada práctica, conocer sus fuentes y distinguir entre tradición, interpretación y experiencia personal. En sus clases promueve las preguntas, la revisión de prejuicios y el desarrollo de un criterio propio, vinculando el estudio con ejercicios, registros y reflexión. En Casa Círculo de Brujas impulsa una formación progresiva que reúne conocimientos, habilidades y práctica. Su propósito es que cada alumno encuentre herramientas para construir un camino consciente y autónomo, profundizar en sus intereses y participar en una comunidad donde aprender también significa compartir, cuestionar y seguir transformándose.",
+      "cumpleanos": "11 de febrero",
+      "signo": "Acuario",
+      "redes": [
+        "instagram",
+        "facebook",
+        "tiktok"
+      ],
+      "antiguedad": "En la Casa desde diciembre de 2016 · 9 años y 11 meses",
+      "foto": "assets/profiles/erin-ahra.png"
+    },
+    {
+      "id": 2,
+      "nombre": "Diana Lunar",
+      "rol": "Maestro Fundador",
+      "especialidades": [
+        "Tarot Evolutivo",
+        "Magia Natural",
+        "Rituales"
+      ],
+      "senderos": [
+        "Sendero de la Diosa",
+        "Chamanismo"
+      ],
+      "descripcion": "Lectora de tarot evolutivo y practicante de magia tradicional. Su enfoque se centra en el empoderamiento personal a través de los arcanos y la reconexión con los ciclos naturales. Apoya a los alumnos a encontrar su intuición profunda.",
+      "cumpleanos": "24 de junio",
+      "signo": "Cáncer",
+      "redes": [
+        "instagram",
+        "facebook"
+      ],
+      "antiguedad": "En la Casa desde agosto de 2018 · 8 años",
+      "foto": "assets/profiles/descarga.jpg"
+    },
+    {
+      "id": 3,
+      "nombre": "Ximeth",
+      "rol": "Invitado",
+      "especialidades": [
+        "Magia con Sigilos",
+        "Geometría Sagrada",
+        "Hechicería"
+      ],
+      "descripcion": "Especialista en hechicería, herramientas y consagración. Enseña métodos de creación, activación y aplicación de sigilos desde la magia personal hasta los sistemas ceremoniales.",
+      "foto": "assets/profiles/images.jpg"
+    },
+    {
+      "id": 4,
+      "nombre": "Morgana V.",
+      "rol": "Maestro de la Casa",
+      "especialidades": [
+        "Defensa Energética",
+        "Creación de Amuletos",
+        "Magia Blanca"
+      ],
+      "descripcion": "Maestra en artes místicas, magia blanca y protección energética. Guía a los practicantes en la creación de amuletos, escudos y limpiezas de espacios con sabiduría ancestral.",
+      "foto": "assets/profiles/wicca.jpg"
+    },
+    {
+      "id": 5,
+      "nombre": "Solange Astral",
+      "rol": "Facilitador",
+      "especialidades": [
+        "Astrología Kármica",
+        "Cartas Natales",
+        "Nodos Lunares"
+      ],
+      "descripcion": "Astróloga kármica dedicada a interpretar las misiones del alma, nodos lunares y cartas natales. Ayuda a los estudiantes a comprender sus ciclos de vida a través de la magia de las estrellas.",
+      "foto": "assets/profiles/gaby.jpeg"
+    },
+    {
+      "id": 6,
+      "nombre": "Luna De la Cruz",
+      "rol": "Maestro de la Casa",
+      "especialidades": [
+        "Tarot Terapéutico",
+        "Sanación Energética"
+      ],
+      "descripcion": "Especialista en lectura de tarot con enfoque terapéutico y terapias de sanación pránica.",
+      "foto": "assets/profiles/erika.jpeg"
+    },
+    {
+      "id": 7,
+      "nombre": "Aura Silva",
+      "rol": "Invitado",
+      "especialidades": [
+        "Magia con Velas",
+        "Rituales Ancestrales"
+      ],
+      "descripcion": "Facilitadora de círculos de mujeres y experta en ritualística ancestral con velas.",
+      "foto": "assets/profiles/ximena.jpeg"
+    }
+  ]
+}
