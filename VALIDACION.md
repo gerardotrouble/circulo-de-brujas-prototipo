@@ -36,7 +36,3 @@ El formulario incluye Volver al inicio. El logotipo y el botón Cerrar sesión d
 La compilación de producción y las dos pruebas unitarias pasaron. Pasaron 13 pruebas en Chrome y 13 en WebKit. La matriz de navegación probó 320 × 568, 390 × 844, 667 × 375, 768 × 1024, 1024 × 768 y 1440 × 900. En cada tamaño se comprobaron los tres controles, el ancho de las páginas y que el indicador de pagos quedara dentro de su tarjeta. Se revisaron capturas de login y portal en 320, 768 y 1440 px.
 
 Firefox se cerró antes de cargar la aplicación en este entorno. Las pruebas se ejecutaron con tamaños simulados.
-
-## Preparación para GitHub Pages
-
-`npm run build:pages` generó el sitio en `docs` con la ruta base `/circulo-de-brujas-prototipo/`. En Chrome se comprobó el recorrido de portada a login y portal, la carga de las imágenes y el acceso directo y la recarga de Pagos. La prueba usó un servidor local que sirve `404.html` para las rutas internas, como se ha configurado para Pages.

@@ -1,4 +1,4 @@
-@let Math = state.Math; @let pendingPaymentsData = state.pendingPaymentsData;
+@let Math = state.Math;
 @let paymentSearchQuery = state.paymentSearchQuery; @let paymentCurrentPage =
 state.paymentCurrentPage; @let paymentHistory = state.paymentHistory; @let
 section = paymentHistory(); @let filteredPayments = section.filteredPayments;
@@ -8,28 +8,38 @@ section.indexOfFirstPayment; @let currentPayments = section.currentPayments;
 <div
   class="animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col min-h-full"
 >
+  <a routerLink="/portal-alumno"
+    class="mb-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-md text-sm font-medium text-slate-600 hover:text-[#6F516F] focus-visible:ring-2 focus-visible:ring-[#6F516F]">
+    <span aria-hidden="true">←</span> Volver a Inicio
+  </a>
   <header class="mb-8">
     <h1 class="text-2xl font-bold text-slate-900">Estado de Cuenta y Pagos</h1>
     <p class="text-slate-500 mt-1">
       Revisa tus próximas colegiaturas y tu historial de transacciones.
     </p>
   </header>
-  <h2 class="text-lg font-bold text-slate-800 mb-4">Requieren atención</h2>
-  <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-10">
-    @for (payment of pendingPaymentsData; track payment.id) {
+  <section aria-labelledby="pending-payments-heading" class="mb-10">
+  <div class="flex flex-wrap items-center gap-3 mb-4">
+    <h2 id="pending-payments-heading" class="text-lg font-bold text-slate-800">Cuotas pendientes</h2>
+    @if (state.paymentStatuses()?.[0]?.label === 'Al corriente') {
+      <span class="rounded-lg bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">Al corriente</span>
+    }
+  </div>
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+    @for (payment of state.pendingPaymentCards(); track payment.id) {
     <div
-      [class]="`p-5 rounded-2xl border ${payment.border} ${payment.bg} flex flex-col xl:flex-row gap-4 items-start xl:items-center justify-between`"
+      [class]="`p-5 rounded-2xl border ${payment.border} ${payment.classes} flex flex-col xl:flex-row gap-4 items-start xl:items-center justify-between`"
     >
       <div class="flex items-start gap-3">
         <div
-          [class]="`mt-1 p-2 bg-white rounded-full shadow-sm ${payment.color}`"
+          class="mt-1 p-2 bg-white rounded-full shadow-sm"
         >
           <portal-art [icon]="payment.icon" />
         </div>
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <h3 [class]="`font-bold ${payment.color}`">{{ payment.status }}</h3>
-            @if (payment.monthsOwed > 0) {
+            <h3 class="font-bold">{{ payment.label }}</h3>
+            @if (payment.overdue && payment.monthsOwed > 0) {
             <span
               class="text-xs font-bold bg-white px-2 py-0.5 rounded-md text-red-600 shadow-sm border border-red-100"
               >Debe {{ payment.monthsOwed }} mes{{ payment.monthsOwed > 1 ? 'es'
@@ -68,7 +78,11 @@ section.indexOfFirstPayment; @let currentPayments = section.currentPayments;
               <path d="M12 17h.01" />
               <path d="M16 17h.01" />
             </svg>
-            {{ payment.dueDate }}
+            @if (payment.dueOn) {
+              <span>Fecha límite <time [attr.datetime]="payment.dueOn">{{ payment.dueDate }}</time></span>
+            } @else {
+              {{ payment.dueDate }}
+            }
           </p>
         </div>
       </div>
@@ -76,15 +90,18 @@ section.indexOfFirstPayment; @let currentPayments = section.currentPayments;
         class="flex flex-wrap xl:flex-col items-center xl:items-end justify-between w-full xl:w-auto gap-3"
       >
         <p class="text-2xl font-bold text-slate-900">{{ payment.amount }}</p>
-        <button
-          [class]="`px-4 py-2 rounded-xl text-sm font-bold text-white shadow-sm transition-transform hover:-translate-y-0.5 ${ payment.status === 'Adeudo' ? 'bg-red-600 hover:bg-red-700' : 'bg-[#6F516F] hover:bg-[#5a425a]' }`"
-        >
-          Pagar ahora
-        </button>
       </div>
     </div>
+    } @empty {
+      @if (state.hasPortalData()) {
+        <p class="text-sm text-slate-600">No tienes cuotas pendientes.</p>
+      }
     }
   </div>
+  @if (state.pendingPaymentCards().length) {
+    <p class="mt-3 text-sm text-slate-600">Pago en línea aún no disponible.</p>
+  }
+  </section>
   <div
     class="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between mb-4 gap-4"
   >

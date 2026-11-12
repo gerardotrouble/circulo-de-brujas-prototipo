@@ -29,139 +29,27 @@
       >
         {{ selectedActivity.title }}
       </h1>
-      @if (!!(selectedActivity.day && selectedActivity.month) &&
-      selectedActivity.type === 'Curso') {
+      @if (selectedActivity.openFirstClass) {
       <div
         class="bg-slate-200/60 text-slate-800 px-4 py-3 rounded-lg text-sm font-medium mb-5"
       >
         Primera clase abierta al público. Registro obligatorio para asistir.
         Consulta la aportación al inscribirte.
       </div>
-      }@if (selectedActivity.instructor && (selectedActivity.day ||
-      selectedActivity.posterListing)) {
-      <p class="text-slate-700 mb-8 font-medium">
-        Con
-        <span
-          (click)="handleMaestroClick($event, selectedActivity.instructor)"
-          class="text-[#6F516F] font-bold hover:underline cursor-pointer"
-          >{{ selectedActivity.instructor }}</span
-        >
-      </p>
       }
       <h2 class="text-2xl font-serif text-[#3a2b3a] mb-5">
         Acerca de la actividad
       </h2>
-      @if (selectedActivity.posterListing) {
-      <div class="space-y-3 text-slate-700">
-        @if (selectedActivity.description) {
-        <p>{{ selectedActivity.description }}</p>
-        } @if (selectedActivity.day) {
-        <p>
-          <strong>Fecha:</strong> {{ selectedActivity.day }} de {{
-          selectedActivity.month }}
-        </p>
-        } @if (selectedActivity.time) {
-        <p><strong>Horario:</strong> {{ selectedActivity.time }}</p>
-        } @if (selectedActivity.duration) {
-        <p><strong>Duración:</strong> {{ selectedActivity.duration }}</p>
-        } @if (selectedActivity.cost) {
-        <p><strong>Aportación:</strong> {{ selectedActivity.cost }}</p>
-        } @if (selectedActivity.venue) {
-        <p><strong>Lugar:</strong> {{ selectedActivity.venue }}</p>
-        }
-      </div>
-      } @else if (!!(selectedActivity.day && selectedActivity.month)) {
-      <div
-        class="space-y-6 text-slate-700 leading-relaxed text-sm md:text-base mb-8"
-      >
-        <div>
-          <h3
-            class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-1"
-          >
-            Descripción
-          </h3>
-          <p class="mb-2">{{ selectedActivity.description }}</p>
-          <p>
-            Los símbolos y sellos están presentes en diversas tradiciones
-            mágicas, utilizados para representar intenciones, fuerzas y
-            principios espirituales. Su historia reúne distintas formas de
-            comprender el símbolo como instrumento ritual y como medio de
-            relación con lo intangible.
-          </p>
-        </div>
-        <div>
-          <h3
-            class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-1"
-          >
-            ¿Qué Aprenderás?
-          </h3>
-          <ul class="list-disc pl-5 space-y-1 mt-2 text-slate-600">
-            <li>Fundamentos históricos y mágicos de la práctica.</li>
-            <li>Tradiciones y sistemas existentes.</li>
-            <li>Métodos de creación personales.</li>
-            <li>Técnicas de activación y aplicación mágica.</li>
-          </ul>
-        </div>
-      </div>
-      } @else {
-      <div
-        class="space-y-6 text-slate-600 leading-relaxed text-sm md:text-base mb-8"
-      >
-        <div>
-          <p class="font-semibold text-slate-700">
-            La fuerza que transforma tu camino espiritual.
-          </p>
-          <p class="mt-2">
-            Este espacio de encuentro está diseñado para explorar el
-            conocimiento profundo a través del simbolismo y la práctica. Una
-            experiencia que reúne los elementos fundamentales para profundizar
-            en tu camino.
-          </p>
-          <p class="mt-2">
-            Ideal para quienes buscan abrir espacio a nuevas posibilidades
-            dentro de su formación continua.
-          </p>
-        </div>
-        @if ((selectedActivity.type === 'Ritual' || selectedActivity.type ===
-        'Taller')) {
-        <div
-          class="bg-[#6F516F]/5 border border-[#6F516F]/10 rounded-xl p-4 mt-4"
-        >
-          <h3
-            class="text-sm font-bold uppercase tracking-wider text-[#6F516F] mb-2 flex items-center gap-2"
-          >
-            <svg
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-book-open"
-            >
-              <path d="M12 5v16" />
-              <path
-                d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"
-              />
-            </svg>
-            Materiales para tu sesión
-          </h3>
-          <ul class="list-disc pl-5 space-y-1 text-sm text-slate-700">
-            <li>Vela blanca o acorde a la intención de la práctica.</li>
-            <li>Libreta personal de apuntes mágicos y bolígrafo.</li>
-            <li>
-              Ropa cómoda (tonos claros u oscuros según se especificó en grupo).
-            </li>
-          </ul>
-        </div>
-        }
-      </div>
-      }
+      <p class="text-slate-700 leading-relaxed text-sm md:text-base">
+        {{ selectedActivity.description || "Descripción por confirmar." }}
+      </p>
+      @let activityDate = selectedActivity.day && selectedActivity.month
+        ? selectedActivity.day + " de " + selectedActivity.month
+        : selectedActivity.sessionLabel || selectedActivity.dateRange || selectedActivity.month;
+      @let activitySchedule = selectedActivity.time || selectedActivity.schedule;
+      @let activityLocation = selectedActivity.venue || selectedActivity.mode;
       <div class="space-y-2 mb-8 mt-6">
+        @if (activityDate) {
         <div class="flex items-start gap-2 text-sm text-slate-700">
           <svg
             aria-hidden="true"
@@ -187,13 +75,10 @@
             <path d="M12 17h.01" />
             <path d="M16 17h.01" />
           </svg>
-          <span>
-            <span class="font-semibold">Fecha: </span> {{ selectedActivity.day ?
-            `${selectedActivity.day} de ${selectedActivity.month} de 2026` :
-            selectedActivity.dateRange }}</span
-          >
+          <span><span class="font-semibold">Fecha: </span>{{ activityDate }}</span>
         </div>
-        @if ((selectedActivity.time || selectedActivity.schedule)) {
+        }
+        @if (activitySchedule) {
         <div class="flex items-start gap-2 text-sm text-slate-700">
           <svg
             aria-hidden="true"
@@ -211,13 +96,10 @@
             <circle cx="12" cy="12" r="10" />
             <path d="M12 6v6l4 2" />
           </svg>
-          <span>
-            <span class="font-semibold">Horario: </span> {{
-            selectedActivity.time || selectedActivity.schedule?.split(',')?.[1]
-            }}</span
-          >
+          <span><span class="font-semibold">Horario: </span>{{ activitySchedule }}</span>
         </div>
         }
+        @if (activityLocation) {
         <div class="flex items-start gap-2 text-sm text-slate-700">
           <svg
             aria-hidden="true"
@@ -238,11 +120,12 @@
             <circle cx="12" cy="10" r="3" />
           </svg>
           <span>
-            <span class="font-semibold">Lugar: </span> {{ selectedActivity.mode
-            === 'En línea' ? 'Transmisión Online Exclusiva' : 'Floresta 55,
-            Clavería, Azcapotzalco, CDMX' }}</span
-          >
+            <span class="font-semibold">{{ selectedActivity.venue ? "Lugar" : "Modalidad" }}: </span>
+            {{ activityLocation }}
+          </span>
         </div>
+        }
+        @if (selectedActivity.instructor) {
         <div class="flex items-start gap-2 text-sm text-slate-700">
           <svg
             aria-hidden="true"
@@ -262,13 +145,15 @@
           </svg>
           <span>
             <span class="font-semibold">Facilitador: </span>
-            <span
-              (click)="handleMaestroClick($event, selectedActivity.instructor)"
-              class="text-[#6F516F] font-bold hover:underline cursor-pointer"
-              >{{ selectedActivity.instructor }}</span
-            >
+            @if (state.teacherFor(selectedActivity.instructor); as teacher) {
+              <a [routerLink]="['/portal-alumno/maestros', teacher.id]" [state]="state.fromActivity"
+                class="portal-card-secondary text-[#6F516F] font-semibold underline underline-offset-2">{{ selectedActivity.instructor }}</a>
+            } @else {
+              {{ selectedActivity.instructor }}
+            }
           </span>
         </div>
+        }
       </div>
       <div
         class="text-sm text-slate-600 space-y-4 border-t border-slate-100 pt-6 mt-auto"
@@ -285,7 +170,7 @@
           >
             Nivel
           </p>
-          <p class="font-medium text-slate-700">Neófito / General</p>
+          <p class="font-medium text-slate-700">{{ selectedActivity.level || 'Neófito / General' }}</p>
         </div>
       </div>
     </div>

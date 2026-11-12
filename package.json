@@ -9,7 +9,7 @@
     "styles:portal": "node tools/styles-portal.mjs",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",
     "test:e2e": "node tools/e2e.mjs",
-    "build:pages": "ng build --configuration production,github-pages && node tools/finalize-pages.mjs"
+    "build:pages": "ng build --configuration production,github-pages && node tools/mark-pages-build.mjs"
   },
   "private": true,
   "dependencies": {

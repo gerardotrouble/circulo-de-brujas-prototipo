@@ -5,6 +5,7 @@
       "type": "Curso",
       "duration": "4 meses",
       "title": "Tarot Evolutivo y Terapéutico",
+      "topics": ["tarot"],
       "instructor": "Erin Ahra",
       "status": "Al corriente",
       "schedule": "Martes y Jueves, 18:00 PM",
@@ -154,6 +155,7 @@
       "id": 3,
       "type": "Lectura",
       "title": "Lectura de Tarot Anual",
+      "topics": ["tarot"],
       "instructor": "Solange Astral",
       "dateRange": "2 de Enero, 2024",
       "gradient": "from-[#718096] to-[#4A5568]",
@@ -208,6 +210,7 @@
       "type": "Mensualidad (Pago 3 de 6)",
       "amount": "$1,200 MXN",
       "dueDate": "Venció hace 5 días",
+      "dueOn": "2026-11-06",
       "status": "Adeudo",
       "monthsOwed": 1,
       "color": "text-red-700",
@@ -221,6 +224,7 @@
       "type": "Mensualidad (Pago 2 de 3)",
       "amount": "$800 MXN",
       "dueDate": "Vence en 3 días",
+      "dueOn": "2026-11-14",
       "status": "Próximo",
       "monthsOwed": 0,
       "color": "text-amber-700",
@@ -306,6 +310,7 @@
   "monthly": [
     {
       "id": 201,
+      "scheduledFor": "2026-11-12T10:00:00-06:00",
       "day": "12",
       "month": "Noviembre",
       "time": "10:00 hrs",
@@ -322,6 +327,7 @@
     },
     {
       "id": 202,
+      "scheduledFor": "2026-11-12T18:00:00-06:00",
       "day": "12",
       "month": "Noviembre",
       "time": "18:00 hrs",
@@ -338,6 +344,7 @@
     },
     {
       "id": 203,
+      "scheduledFor": "2026-11-15T20:00:00-06:00",
       "day": "15",
       "month": "Noviembre",
       "time": "20:00 hrs",
@@ -354,6 +361,9 @@
     },
     {
       "id": 204,
+      "level": "Principiante",
+      "openFirstClass": true,
+      "scheduledFor": "2026-11-20T16:00:00-06:00",
       "day": "20",
       "month": "Noviembre",
       "time": "16:00 hrs",
@@ -370,6 +380,7 @@
     },
     {
       "id": 205,
+      "scheduledFor": "2026-11-28T19:00:00-06:00",
       "day": "28",
       "month": "Noviembre",
       "time": "19:00 hrs",
@@ -386,6 +397,7 @@
     },
     {
       "id": 206,
+      "scheduledFor": "2026-11-01T12:00:00-06:00",
       "day": "1",
       "month": "Noviembre",
       "instructor": "Itah",
@@ -404,9 +416,10 @@
     },
     {
       "id": 207,
+      "scheduledFor": "2026-11-07",
       "day": "7",
       "month": "Noviembre",
-      "instructor": "",
+      "instructor": "Nadia Vesper",
       "gradient": "",
       "icon": "",
       "title": "Kali · El poder de la transformación",
@@ -418,6 +431,7 @@
     },
     {
       "id": 208,
+      "agendaMonth": "2026-11",
       "day": "",
       "month": "Noviembre",
       "instructor": "Annia",
@@ -436,6 +450,7 @@
     },
     {
       "id": 209,
+      "agendaMonth": "2026-11",
       "day": "",
       "month": "Noviembre",
       "instructor": "Krabat",
@@ -459,9 +474,10 @@
     },
     {
       "id": 210,
+      "agendaMonth": "2026-11",
       "day": "",
       "month": "Noviembre",
-      "instructor": "",
+      "instructor": "Irene Tinta",
       "gradient": "",
       "icon": "",
       "title": "La Casa Crea",
@@ -470,6 +486,40 @@
       "cover": "assets/activities/la-casa-crea.png",
       "posterListing": true,
       "sessionLabel": "Noviembre"
+    },
+    {
+      "id": 211,
+      "title": "Arcanos Mayores en la práctica",
+      "type": "Curso",
+      "instructor": "Luna De la Cruz",
+      "description": "Profundiza en el simbolismo de los Arcanos Mayores y practica cómo interpretarlos en tiradas breves de tarot.",
+      "topics": ["tarot"],
+      "addedOn": "2026-11-08",
+      "scheduledFor": "2026-11-24T18:00:00-06:00",
+      "day": "24",
+      "month": "Noviembre",
+      "time": "18:00 hrs",
+      "mode": "En línea",
+      "gradient": "from-[#4A3B4A] to-[#2C242C]",
+      "icon": "art-1",
+      "cover": "assets/activities/current-1.png"
+    },
+    {
+      "id": 212,
+      "title": "Fundamentos de Magia Natural",
+      "type": "Curso",
+      "instructor": "Diana Lunar",
+      "description": "Introducción a los ciclos naturales y al simbolismo de las plantas mediante ejercicios de observación y un diario de práctica.",
+      "level": "Principiante",
+      "addedOn": "2026-11-11",
+      "scheduledFor": "2026-11-29T11:00:00-06:00",
+      "day": "29",
+      "month": "Noviembre",
+      "time": "11:00 hrs",
+      "mode": "En línea",
+      "gradient": "from-[#3D3333] to-[#8C6D4A]",
+      "icon": "art-2",
+      "cover": "assets/activities/current-2.png"
     }
   ],
   "teachers": [
@@ -586,6 +636,76 @@
       ],
       "descripcion": "Facilitadora de círculos de mujeres y experta en ritualística ancestral con velas.",
       "foto": "assets/profiles/ximena.jpeg"
+    },
+    {
+      "id": 8,
+      "nombre": "Itah",
+      "rol": "Facilitadora invitada",
+      "especialidades": ["Mitología mesoamericana", "Simbolismo del Mictlán", "Narración oral"],
+      "senderos": ["Memoria y ritual", "Relatos del tránsito y la transformación"],
+      "descripcion": "Itah diseña talleres que unen narración oral, lectura de imágenes y escritura personal. En Un Viaje Hacia El Mictlán guía una lectura simbólica de los paisajes y figuras del relato para explorar el duelo, la memoria y los cambios de etapa. Invita a cerrar la sesión con una reflexión escrita sobre el propio recorrido.",
+      "cumpleanos": "3 de noviembre",
+      "signo": "Escorpio",
+      "redes": ["instagram"],
+      "antiguedad": "Colabora con la Casa desde octubre de 2023",
+      "perfilFicticio": true,
+      "foto": "assets/profiles/itah.jpg"
+    },
+    {
+      "id": 9,
+      "nombre": "Nadia Vesper",
+      "rol": "Facilitadora invitada",
+      "especialidades": ["Mitología comparada", "Lectura de imágenes", "Escritura reflexiva"],
+      "senderos": ["Simbolismo y transformación", "Narrativas rituales"],
+      "descripcion": "Nadia facilita encuentros de lectura simbólica donde el grupo observa imágenes, conversa y lleva sus preguntas a un diario. En Kali · El poder de la transformación propone mirar los gestos y atributos de la figura con atención a su contexto, y usar la escritura para reconocer hábitos que cada persona desea cambiar.",
+      "cumpleanos": "16 de octubre",
+      "signo": "Libra",
+      "redes": ["instagram", "facebook"],
+      "antiguedad": "Colabora con la Casa desde junio de 2025",
+      "perfilFicticio": true,
+      "foto": "assets/profiles/nadia-vesper.jpg"
+    },
+    {
+      "id": 10,
+      "nombre": "Annia",
+      "rol": "Facilitadora de sesiones individuales",
+      "especialidades": ["Registros Akáshicos", "Meditación guiada", "Escritura introspectiva"],
+      "senderos": ["Contemplación", "Prácticas de escucha interior"],
+      "descripcion": "Annia facilita sesiones individuales de Registros Akáshicos centradas en la reflexión personal. Comienza ayudando a formular una pregunta abierta, guía un ejercicio de atención y reserva el cierre para registrar imágenes, impresiones y preguntas que hayan surgido durante la sesión.",
+      "cumpleanos": "2 de marzo",
+      "signo": "Piscis",
+      "redes": ["instagram", "facebook"],
+      "antiguedad": "Colabora con la Casa desde marzo de 2024",
+      "perfilFicticio": true,
+      "foto": "assets/profiles/annia.jpg"
+    },
+    {
+      "id": 11,
+      "nombre": "Krabat",
+      "rol": "Lector de tarot",
+      "especialidades": ["Tarot de Marsella", "Tiradas breves", "Interpretación de arcanos"],
+      "senderos": ["Simbolismo del tarot", "Lectura narrativa"],
+      "descripcion": "Krabat trabaja con las imágenes del tarot como punto de partida para conversar sobre una pregunta concreta. En Mañanas de Tarot entre semana realiza lecturas de quince minutos. Empieza por acotar la pregunta, explica las imágenes de la tirada y cierra con una idea para seguir explorando después del encuentro.",
+      "cumpleanos": "8 de septiembre",
+      "signo": "Virgo",
+      "redes": ["instagram", "tiktok"],
+      "antiguedad": "Colabora con la Casa desde febrero de 2023",
+      "perfilFicticio": true,
+      "foto": "assets/profiles/krabat.jpg"
+    },
+    {
+      "id": 12,
+      "nombre": "Irene Tinta",
+      "rol": "Facilitadora de talleres creativos",
+      "especialidades": ["Collage narrativo", "Escritura creativa", "Encuadernación artesanal"],
+      "senderos": ["Arte comunitario", "Experimentación con papel"],
+      "descripcion": "Irene coordina La Casa Crea, un espacio para ensayar formas de contar historias con palabras, imágenes y objetos de papel. Sus encuentros parten de consignas breves y materiales accesibles. Al final, quien lo desea comparte su pieza y conversa con el grupo sobre las decisiones que tomó para crearla.",
+      "cumpleanos": "2 de junio",
+      "signo": "Géminis",
+      "redes": ["instagram", "tiktok"],
+      "antiguedad": "Colabora con la Casa desde abril de 2025",
+      "perfilFicticio": true,
+      "foto": "assets/profiles/irene-tinta.jpg"
     }
   ]
 }

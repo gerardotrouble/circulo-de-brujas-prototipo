@@ -2,6 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
+cb-portal[data-theme="dark"] {
+  color-scheme: dark;
+  --portal-white: 31 27 36;
+  --portal-slate-50: 39 34 46;
+  --portal-slate-100: 22 19 28;
+  --portal-slate-200: 58 51 68;
+  --portal-slate-300: 85 74 97;
+  --portal-slate-400: 161 150 171;
+  --portal-slate-500: 178 168 187;
+  --portal-slate-600: 198 188 206;
+  --portal-slate-700: 218 207 224;
+  --portal-slate-800: 232 224 237;
+  --portal-slate-900: 246 239 249;
+  --portal-amber-50: 51 38 25;
+  --portal-amber-200: 100 74 44;
+  --portal-amber-700: 249 201 133;
+  --portal-green-50: 28 46 38;
+  --portal-green-100: 34 56 45;
+  --portal-green-200: 56 93 74;
+  --portal-green-700: 156 224 183;
+  --portal-red-50: 56 32 41;
+  --portal-red-100: 72 38 50;
+  --portal-red-200: 108 57 75;
+  --portal-red-600: 255 171 182;
+  --portal-red-700: 255 179 190;
+  --portal-accent-text: #dcc0e2;
+  --portal-accent-title: #f1deef;
+}
+
+cb-portal[data-theme="dark"] :is(
+  .text-\[\#6F516F\],
+  .hover\:text-\[\#6F516F\]:hover,
+  .group:hover .group-hover\:text-\[\#6F516F\]
+) {
+  color: var(--portal-accent-text);
+}
+
+cb-portal[data-theme="dark"] .text-\[\#3a2b3a\] {
+  color: var(--portal-accent-title);
+}
+
+cb-portal[data-theme="dark"] :is(.text-\[\#8b704c\], .text-\[\#8C6D4A\]) {
+  color: #ebc696;
+}
+
+cb-portal[data-theme="dark"] .text-\[\#4A5D7C\] { color: #adc5ec; }
+cb-portal[data-theme="dark"] .text-\[\#4B5563\] { color: rgb(var(--portal-slate-600)); }
+cb-portal[data-theme="dark"] .text-\[\#8C4A57\] { color: #f6b5c5; }
+
+cb-portal[data-theme="dark"] :is(.border-\[\#eae2ea\], .border-\[\#eee7ee\]) {
+  border-color: rgb(var(--portal-slate-200));
+}
+
+cb-portal[data-theme="dark"] .bg-\[\#6F516F\]\/15 {
+  background-color: rgb(177 123 187 / 22%);
+}
+
+cb-portal[data-theme="dark"] .ring-\[\#6F516F\] {
+  --tw-ring-color: var(--portal-accent-text);
+}
+
+.portal-card-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  content: "";
+}
+
+.portal-card-link:focus-visible::after {
+  outline: 2px solid var(--portal-accent-text, #6f516f);
+  outline-offset: -3px;
+}
+
+.portal-card-secondary {
+  position: relative;
+  z-index: 20;
+}
+
 @layer utilities {
   .animate-in {
     animation: portal-enter 150ms both;

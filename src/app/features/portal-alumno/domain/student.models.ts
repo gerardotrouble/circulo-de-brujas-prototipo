@@ -22,6 +22,11 @@ export interface Activity {
   day?: string;
   month?: string;
   time?: string;
+  scheduledFor?: string;
+  addedOn?: string;
+  topics?: string[];
+  level?: string;
+  openFirstClass?: boolean;
   description?: string;
   cost?: string;
 }
@@ -37,13 +42,21 @@ export interface Teacher {
   signo?: string;
   redes?: string[];
   antiguedad?: string;
+  perfilFicticio?: boolean;
   foto: string;
+}
+
+export interface MonthlyActivity extends Activity {
+  day: string;
+  month: string;
+  agendaMonth?: string; // YYYY-MM para actividades sin una fecha concreta.
+  publicationStatus?: "draft" | "published";
 }
 
 export interface StudentData {
   current: Activity[];
   past: Activity[];
-  monthly: (Activity & { day: string; month: string })[];
+  monthly: MonthlyActivity[];
   pending: PendingPayment[];
   payments: Payment[];
   teachers: Teacher[];
@@ -55,6 +68,7 @@ export interface PendingPayment {
   type: string;
   amount: string;
   dueDate: string;
+  dueOn?: string; // Fecha límite en formato YYYY-MM-DD.
   status: string;
   monthsOwed: number;
   color: string;

@@ -17,7 +17,6 @@ export class LoginComponent {
   protected readonly form = inject(FormBuilder).nonNullable.group({
     email: '',
     password: '',
-    remember: true,
   });
 
   protected readonly showPassword = signal(false);

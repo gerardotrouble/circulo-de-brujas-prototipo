@@ -2,8 +2,29 @@
   flex-shrink: 0;
 }
 
+:host([data-theme="dark"]) .portal-home img {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 .portal-home:focus-visible,
-.portal-exit:focus-visible {
-  outline: 2px solid #6f516f;
+.portal-exit:focus-visible,
+.portal-theme-toggle:focus-visible,
+.portal-menu-trigger:focus-visible,
+.portal-notification-trigger:focus-visible,
+.portal-exit-dialog button:focus-visible {
+  outline: 2px solid var(--portal-accent-text, #6f516f);
   outline-offset: 2px;
+}
+
+.portal-exit-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(calc(100% - 2rem), 26rem);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+}
+
+.portal-exit-dialog::backdrop {
+  background: rgb(15 23 42 / 58%);
 }

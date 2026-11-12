@@ -1,22 +1,39 @@
-import { computed, ErrorHandler, inject, Injectable, signal } from "@angular/core";
+import { Location } from "@angular/common";
+import { computed, ErrorHandler, inject, Injectable, NgZone, signal } from "@angular/core";
 import { takeUntilDestroyed, toSignal } from "@angular/core/rxjs-interop";
-import { catchError, distinctUntilChanged, filter, map, of, shareReplay } from "rxjs";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
+import { catchError, distinctUntilChanged, filter, interval, map, of, shareReplay } from "rxjs";
+import { ActivatedRoute, NavigationEnd, NavigationExtras, Router } from "@angular/router";
 import { coursePage } from "../domain/course-page";
+import {
+  activityCalendarDay,
+  belongsToCalendarMonth,
+  calendarMonth,
+  isPublishedMonthlyActivity,
+  portalDate,
+} from "../domain/activity-calendar";
+import { paymentAlerts, pendingPaymentStatus } from "../domain/payment-alerts";
 import { FormControl } from "@angular/forms";
-import { Activity, Teacher } from "../domain/student.models";
+import { Activity } from "../domain/student.models";
 import { STUDENT_REPOSITORY } from "../data-access/student.repository";
 import { mysticPatternStyle } from "../../../shared/mystic-pattern";
 
-const sections = ["cursos-actuales", "cursos-pasados", "pagos", "actividades-mes", "maestros"] as const;
+const sections = ["cursos-actuales", "cursos-pasados", "pagos", "actividades-mes", "maestros", "configuracion"] as const;
 type StudentView = "dashboard" | (typeof sections)[number];
 type MenuState = { cursos: boolean; actividades: boolean };
 type AgendaLayout = "list" | "grid" | "calendar";
+
+const paymentDateFormat = new Intl.DateTimeFormat("es-MX", { dateStyle: "long", timeZone: "UTC" });
+const paymentLabels = {
+  overdue: { label: "Adeudo", classes: "bg-red-50 text-red-700", border: "border-red-200" },
+  upcoming: { label: "Próximo pago", classes: "bg-amber-50 text-amber-700", border: "border-amber-200" },
+  scheduled: { label: "Programado", classes: "bg-slate-50 text-slate-600", border: "border-slate-200" },
+};
 
 @Injectable()
 export class StudentFacade {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly location = inject(Location);
   private readonly errorHandler = inject(ErrorHandler);
   private readonly routeChanges = this.router.events.pipe(
     filter(event => event instanceof NavigationEnd),
@@ -71,8 +88,11 @@ export class StudentFacade {
   get paymentHistoryData() {
     return this.portal()?.payments ?? [];
   }
+  private readonly publishedMonthlyActivities = computed(() =>
+    this.portal()?.monthly.filter(isPublishedMonthlyActivity) ?? [],
+  );
   get monthlyActivitiesData() {
-    return this.portal()?.monthly ?? [];
+    return this.publishedMonthlyActivities();
   }
   get maestrosData() {
     return this.portal()?.teachers ?? [];
@@ -125,13 +145,27 @@ export class StudentFacade {
     return this.selectedMaestroState();
   }
 
-  openActivity(activity: Activity): void {
-    this.navigate(this.navigationView(), activity.id);
+  readonly canReturnToActivity = computed(() =>
+    this.navigationView() === "maestros" &&
+    this.selectedId() !== null &&
+    (this.location.getState() as { fromActivity?: boolean } | null)?.fromActivity === true,
+  );
+
+  readonly fromActivityList = { fromActivityList: true };
+  readonly fromActivity = { fromActivity: true };
+  private readonly teachersByName = computed(() =>
+    new Map(this.maestrosData.map(teacher => [teacher.nombre, teacher])),
+  );
+  teacherFor(instructor: string) {
+    return this.teachersByName().get(instructor);
   }
 
-  openMaestro(teacher: Teacher): void {
-    this.setOpenMenus({ cursos: false, actividades: false });
-    this.navigate("maestros", teacher.id);
+  returnFromMaestro(): void {
+    if (this.canReturnToActivity()) {
+      this.location.back();
+      return;
+    }
+    this.setActiveView("maestros");
   }
 
   readonly searchQueryControl = new FormControl("", { nonNullable: true });
@@ -200,6 +234,8 @@ export class StudentFacade {
     this.paymentsPerPageControl.setValue(value);
   }
 
+  readonly teacherDirectoryView = signal<"compact" | "full">("full");
+
   readonly maestrosSearchQueryControl = new FormControl("", {
     nonNullable: true,
   });
@@ -228,6 +264,57 @@ export class StudentFacade {
   }
   setActivityViewMode(value: AgendaLayout): void {
     this.activityViewModeState.set(value);
+  }
+
+  readonly today = inject(NgZone).runOutsideAngular(() =>
+    toSignal(interval(60_000).pipe(map(() => portalDate(new Date())), distinctUntilChanged()), {
+      initialValue: portalDate(new Date()),
+    }),
+  );
+  private readonly currentMonthKey = computed(() => this.today().slice(0, 7));
+  readonly currentActivityMonth = computed(() => calendarMonth(this.currentMonthKey()));
+  readonly currentMonthActivities = computed(() =>
+    this.monthlyActivitiesData.filter(activity =>
+      belongsToCalendarMonth(activity, this.currentActivityMonth(), this.currentMonthKey()),
+    ),
+  );
+  private readonly nextActivityMonth = computed(() => calendarMonth(this.currentActivityMonth().nextKey));
+  private readonly selectedCalendarMonthKey = signal<string | null>(null);
+  private readonly nextMonthActivities = computed(() =>
+    this.monthlyActivitiesData.filter(activity =>
+      belongsToCalendarMonth(activity, this.nextActivityMonth(), this.currentMonthKey()),
+    ),
+  );
+  private readonly viewingNextCalendarMonth = computed(() =>
+    this.activityViewMode === "calendar" &&
+    this.nextMonthActivities().length > 0 &&
+    this.selectedCalendarMonthKey() === this.nextActivityMonth().key,
+  );
+  readonly activityMonth = computed(() =>
+    this.viewingNextCalendarMonth() ? this.nextActivityMonth() : this.currentActivityMonth(),
+  );
+  readonly calendarMonthLink = computed(() => {
+    if (this.activityViewMode !== "calendar" || !this.nextMonthActivities().length) return null;
+    return this.viewingNextCalendarMonth()
+      ? { label: `Volver a ${this.currentActivityMonth().name}`, back: true }
+      : { label: `Ver ${this.nextActivityMonth().name}`, back: false };
+  });
+
+  toggleCalendarMonth(): void {
+    const link = this.calendarMonthLink();
+    if (!link) return;
+    this.selectedCalendarMonthKey.set(link.back ? null : this.nextActivityMonth().key);
+    this.selectedCalendarDayState.set(null);
+  }
+
+  private readonly selectedCalendarDayState = signal<{ monthKey: string; day: number } | null>(null);
+  readonly selectedCalendarDay = computed(() => {
+    const selection = this.selectedCalendarDayState();
+    return selection?.monthKey === this.activityMonth().key ? selection.day : null;
+  });
+
+  selectCalendarDay(day: number): void {
+    this.selectedCalendarDayState.set({ monthKey: this.activityMonth().key, day });
   }
 
   readonly activitySearchQueryControl = new FormControl("", {
@@ -271,9 +358,31 @@ export class StudentFacade {
     this.openMenusState.set(value);
   }
 
+  readonly activeCourses = computed(() =>
+    this.currentActivitiesData.filter(activity => activity.type === "Curso" && activity.badge === "En curso"),
+  );
+  readonly paymentStatuses = computed(() => {
+    if (!this.hasPortalData()) return null;
+    const { overdue, upcoming } = paymentAlerts(this.pendingPaymentsData, this.today());
+    const statuses = [];
+    if (overdue) statuses.push(paymentLabels.overdue);
+    if (upcoming) statuses.push(paymentLabels.upcoming);
+    if (!statuses.length) statuses.push({ label: "Al corriente", classes: "bg-green-100 text-green-700" });
+    return statuses;
+  });
+  readonly pendingPaymentCards = computed(() => this.pendingPaymentsData.map(payment => {
+    const status = pendingPaymentStatus(payment, this.today());
+    const due = Date.parse(`${payment.dueOn}T00:00:00Z`);
+    const dueDate = Number.isFinite(due) ? paymentDateFormat.format(due) : payment.dueDate;
+    return { ...payment, ...paymentLabels[status], dueDate, overdue: status === "overdue" };
+  }));
+  readonly isActiveCoursesView = computed(() =>
+    this.navigationView() === "cursos-actuales" && this.child()?.queryParamMap.get("estado") === "activo",
+  );
+
   readonly currentCourses = computed(() =>
     coursePage(
-      this.currentActivitiesData,
+      this.isActiveCoursesView() ? this.activeCourses() : this.currentActivitiesData,
       this.searchQuery,
       this.filterType,
       this.currentPage,
@@ -321,11 +430,13 @@ export class StudentFacade {
       activitySearchQuery,
       activityFilterType,
       activityCurrentPage,
-      monthlyActivitiesData,
       itemsPerPage,
     } = this;
-    const filteredActivities = monthlyActivitiesData.filter((item) => {
-      const searchStr = activitySearchQuery.toLowerCase();
+    const searchStr = this.activityViewMode === "calendar" ? "" : activitySearchQuery.toLowerCase();
+    const monthActivities = this.viewingNextCalendarMonth()
+      ? this.nextMonthActivities()
+      : this.currentMonthActivities();
+    const filteredActivities = monthActivities.filter((item) => {
       const matchesSearch =
         item.title.toLowerCase().includes(searchStr) ||
         item.instructor.toLowerCase().includes(searchStr) ||
@@ -340,17 +451,12 @@ export class StudentFacade {
     const idxLastAct = activityCurrentPage * itemsPerPage;
     const idxFirstAct = idxLastAct - itemsPerPage;
     const currentActs = filteredActivities.slice(idxFirstAct, idxLastAct);
-    const calendarDays = Array.from({ length: 42 }, (_, i) => {
-      const dayNumber = i - 5;
-      return dayNumber > 0 && dayNumber <= 30 ? dayNumber : null;
-    });
     return {
       filteredActivities,
       totalActPages,
       idxLastAct,
       idxFirstAct,
       currentActs,
-      calendarDays,
     };
   });
   readonly teacherDirectory = computed(() => {
@@ -387,12 +493,6 @@ export class StudentFacade {
   });
 
   constructor() {
-    this.routeChanges.pipe(takeUntilDestroyed()).subscribe(() => {
-      this.setSearchQuery("");
-      this.setFilterType("Todos");
-      this.setPaymentSearchQuery("");
-      this.setMaestrosSearchQuery("");
-    });
     this.searchQueryControl.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.setCurrentPage(1));
@@ -414,15 +514,23 @@ export class StudentFacade {
   }
 
   setActiveView(value: StudentView): void {
+    if ((value === "cursos-actuales" || value === "cursos-pasados") && value !== this.navigationView()) {
+      this.setSearchQuery("");
+      this.setFilterType("Todos");
+    }
     this.navigate(value);
   }
 
-  private navigate(section: StudentView, id?: number, closeMenu = true): void {
+  private navigate(
+    section: StudentView,
+    id?: number,
+    { closeMenu = true, state }: { closeMenu?: boolean; state?: NavigationExtras["state"] } = {},
+  ): void {
     if (closeMenu) this.setIsMobileMenuOpen(false);
     const commands = ["/portal-alumno"];
     if (section !== "dashboard") commands.push(section);
     if (id !== undefined) commands.push(String(id));
-    void this.router.navigate(commands);
+    void this.router.navigate(commands, { state });
   }
 
   toggleSidebar(): void {
@@ -438,7 +546,7 @@ export class StudentFacade {
       opening &&
       (this.navigationView() !== "actividades-mes" || this.selectedId() !== null)
     ) {
-      this.navigate("actividades-mes", undefined, false);
+      this.navigate("actividades-mes", undefined, { closeMenu: false });
       this.setActivityFilterType("Todos");
       this.setActivitySearchQuery("");
       this.setActivityCurrentPage(1);
@@ -450,20 +558,21 @@ export class StudentFacade {
     this.setIsSidebarOpen(true);
   }
 
-  handleMaestroClick(event: Event, instructor: string): void {
-    event.stopPropagation();
-    const teacher = this.maestrosData.find(
-      (item) => item.nombre === instructor,
-    );
-    if (!teacher) return;
-    this.openMaestro(teacher);
-  }
-
   returnFromActivity(): void {
+    const origin = this.location.getState() as {
+      fromTeacher?: boolean;
+      fromDashboard?: boolean;
+      fromActivityList?: boolean;
+      fromNotification?: boolean;
+    } | null;
+    if (origin?.fromTeacher || origin?.fromDashboard || origin?.fromActivityList || origin?.fromNotification) {
+      this.location.back();
+      return;
+    }
     this.setActiveView(this.navigationView());
   }
 
   activitiesOnDay<T extends Activity>(items: readonly T[], day: number): T[] {
-    return items.filter((item) => item.day === String(day));
+    return items.filter(item => activityCalendarDay(item) === day);
   }
 }

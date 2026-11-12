@@ -17,15 +17,18 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
   ></div>
   }
   <aside
+    id="portal-menu"
+    [attr.inert]="mobile() && !isMobileMenuOpen ? '' : null"
     [class]="`fixed md:relative inset-y-0 left-0 flex flex-col h-full max-w-[calc(100vw-16px)] shrink-0 bg-white border-r border-slate-200 shadow-2xl md:shadow-sm transition-transform md:transition-all duration-300 ease-in-out z-50 transform ${ isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0' } ${isSidebarOpen ? 'w-72' : 'md:w-20 w-72'}`"
   >
     <div
       [class]="`flex items-center p-4 ${isSidebarOpen ? 'justify-between md:justify-end' : 'justify-center'}`"
     >
       <button
+        #closeMenuTrigger
         (click)="setIsMobileMenuOpen(false)"
         aria-label="Cerrar menú"
-        class="md:hidden p-2 rounded-lg text-slate-400 hover:text-slate-700 bg-slate-50 transition-colors focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
+        class="portal-menu-trigger md:hidden p-2 rounded-lg text-slate-400 hover:text-slate-700 bg-slate-50 transition-colors focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
       >
         <svg
           aria-hidden="true"
@@ -90,24 +93,23 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
       title="Volver al inicio"
     >
       <div class="relative">
-        <img
-          src="assets/profiles/elyann.jpg"
-          alt="Foto del alumno"
-          [class]="`relative rounded-full object-cover border-2 border-white shadow-sm transition-all duration-300 ${ isSidebarOpen ? 'w-20 h-20 mb-3' : 'w-10 h-10' }`"
+        <student-avatar
+          [photo]="studentProfile.profile().photo"
+          [class]="`relative border-2 border-white shadow-sm transition-all duration-300 ${ isSidebarOpen ? 'w-24 h-24 mb-3' : 'w-10 h-10' }`"
         />
       </div>
       <div
         [class]="`flex flex-col items-center overflow-hidden transition-all duration-300 ${isSidebarOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`"
       >
-        <h2 class="text-lg font-bold text-slate-900 whitespace-nowrap">
-          Sofia Ramírez
+        <h2 class="text-lg font-bold text-slate-900 text-center break-words max-w-full">
+          {{ studentProfile.menuName() }}
         </h2>
         <span
           class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#6F516F]/10 text-[#6F516F] mt-1 whitespace-nowrap"
-          >Principiante</span
+          >{{ studentProfile.enrollment.level }}</span
         >
         <span class="text-xs font-medium text-slate-500 mt-2 whitespace-nowrap"
-          >Matrícula: <span class="text-slate-700 font-bold">10293847</span>
+          >Matrícula: <span class="text-slate-700 font-bold">{{ studentProfile.enrollment.registration }}</span>
         </span>
       </div>
     </div>
@@ -221,7 +223,7 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
                 >Pasados
               </button>
             </li>
-            <li>
+            <li hidden>
               <a
                 href="#"
                 class="flex items-center gap-2.5 py-2 px-3 text-sm font-medium text-slate-500 rounded-lg hover:text-slate-900 hover:bg-slate-100 transition-colors"
@@ -510,10 +512,16 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
         </div>
       </button>
     </nav>
-    <div class="p-4 border-t border-slate-100 mt-auto">
+    <div class="flex items-center gap-2 p-4 border-t border-slate-100 mt-auto" [class.flex-col]="!isSidebarOpen">
       <a
-        href="#"
-        class="flex items-center gap-3 p-3 rounded-xl font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors group min-h-[44px]"
+        routerLink="/portal-alumno/configuracion"
+        (click)="setIsMobileMenuOpen(false); setOpenMenus({ cursos: false, actividades: false })"
+        aria-label="Configuración"
+        title="Configuración"
+        [attr.aria-current]="navigationView === 'configuracion' ? 'page' : null"
+        class="flex items-center gap-3 p-3 rounded-xl font-semibold transition-colors group min-h-[44px]"
+        [class.flex-1]="isSidebarOpen"
+        [class]="navigationView === 'configuracion' ? 'bg-[#6F516F]/15 text-[#6F516F]' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'"
       >
         <svg
           aria-hidden="true"
@@ -538,19 +546,40 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
           >Configuración</span
         >
       </a>
+      <button
+        type="button"
+        aria-label="Modo oscuro"
+        [attr.aria-pressed]="darkTheme()"
+        [title]="darkTheme() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+        (click)="toggleTheme()"
+        class="portal-theme-toggle flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100"
+      >
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          @if (darkTheme()) {
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          } @else {
+            <path d="M20.9 13.35A9 9 0 0 1 10.65 3.1 9 9 0 1 0 20.9 13.35Z" />
+          }
+        </svg>
+      </button>
     </div>
   </aside>
   <main
+    [attr.inert]="mobile() && isMobileMenuOpen ? '' : null"
     class="flex-1 flex flex-col h-full min-w-0 overflow-hidden bg-transparent w-full"
   >
     <header
       class="relative px-3 sm:px-6 py-2 flex items-center gap-2 z-30 bg-slate-100 md:bg-transparent"
     >
       <button
+        #openMenuTrigger
         (click)="setIsMobileMenuOpen(true)"
         aria-label="Abrir menú"
+        aria-controls="portal-menu"
         [attr.aria-expanded]="isMobileMenuOpen"
-        class="md:hidden p-2 text-slate-500 hover:text-slate-800 focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200"
+        class="portal-menu-trigger md:hidden p-2 text-slate-500 hover:text-slate-800 focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200"
       >
         <svg
           aria-hidden="true"
@@ -581,8 +610,13 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
       </a>
       <div class="relative ml-auto flex items-center gap-2" #notifications>
         <button
+          #notificationTrigger
           (click)="setShowNotifications(!showNotifications)"
-          class="relative p-2.5 text-slate-500 hover:text-[#6F516F] bg-white md:bg-transparent md:hover:bg-slate-200/50 rounded-full shadow-sm md:shadow-none border border-slate-200 md:border-transparent transition-all focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
+          [attr.aria-expanded]="showNotifications"
+          aria-controls="portal-notifications"
+          aria-label="Notificaciones"
+          aria-describedby="portal-notification-count"
+          class="portal-notification-trigger relative p-2.5 text-slate-500 hover:text-[#6F516F] bg-white md:bg-transparent md:hover:bg-slate-200/50 rounded-full shadow-sm md:shadow-none border border-slate-200 md:border-transparent transition-all focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
           title="Notificaciones"
         >
           <svg
@@ -603,13 +637,18 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
               d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
             />
           </svg>
-          <span
+          @if (unreadCount()) {
+          <span aria-hidden="true"
             class="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white md:border-slate-100"
           >
           </span>
+          }
         </button>
+        <span id="portal-notification-count" class="sr-only">{{ unreadCount() }} sin leer</span>
         <div
-          [class]="`absolute right-0 top-12 mt-2 w-80 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50 transition-all duration-200 origin-top-right ${ showNotifications ? 'transform scale-100 opacity-100' : 'transform scale-95 opacity-0 pointer-events-none' }`"
+          id="portal-notifications"
+          [hidden]="!showNotifications"
+          class="absolute right-0 top-12 mt-2 w-80 max-w-[calc(100vw-24px)] bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50"
         >
           <div
             class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50"
@@ -617,43 +656,33 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
             <h3 class="font-bold text-slate-800">Notificaciones</h3>
             <span
               class="text-xs font-bold bg-[#6F516F]/10 text-[#6F516F] px-2 py-1 rounded-full"
-              >3 nuevas</span
+              >{{ unreadCount() }} sin leer</span
             >
           </div>
           <ul class="max-h-80 overflow-y-auto custom-scrollbar">
-            <li
-              class="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer"
-            >
-              <p class="text-sm font-bold text-slate-800">
-                Nuevo ritual añadido
-              </p>
-              <p class="text-sm text-slate-600 mt-1">
-                Se ha programado el "Ritual de Luna Llena".
-              </p>
-              <p class="text-xs text-slate-400 mt-2 font-medium">
-                Hace 2 horas
-              </p>
+            @for (notice of notices; track notice.id) {
+            <li class="border-b border-slate-100">
+              <a [routerLink]="notice.route" [state]="notificationOrigin" (click)="openNotice(notice.id)"
+                class="block p-4 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#6F516F]">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <p class="text-sm font-bold text-slate-800">{{ notice.title }}</p>
+                  @if (!readNotices().includes(notice.id)) {
+                    <span class="text-xs font-semibold text-[#6F516F]">Sin leer</span>
+                  }
+                </div>
+                <p class="mt-1 text-sm text-slate-600">{{ notice.description }}</p>
+              </a>
             </li>
-            <li
-              class="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer"
-            >
-              <p class="text-sm font-bold text-slate-800">Pago confirmado</p>
-              <p class="text-sm text-slate-600 mt-1">
-                Tu pago para el curso de Tarot ha sido procesado.
-              </p>
-              <p class="text-xs text-slate-400 mt-2 font-medium">
-                Hace 5 horas
-              </p>
-            </li>
+            }
           </ul>
         </div>
         <div class="h-6 w-px bg-slate-200 mx-1 md:block hidden"></div>
         <button
           class="portal-exit relative p-2.5 text-slate-500 hover:text-red-600 bg-white md:bg-transparent md:hover:bg-red-50 rounded-full shadow-sm md:shadow-none border border-slate-200 md:border-transparent transition-all focus:outline-none min-h-[44px] min-w-[44px] flex items-center justify-center"
           type="button"
-          routerLink="/"
-          [replaceUrl]="true"
+          (click)="logoutConfirmation.showModal()"
           aria-label="Cerrar sesión"
+          aria-haspopup="dialog"
           title="Cerrar sesión"
         >
           <svg
@@ -679,7 +708,7 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
     <div
       class="flex-1 bg-white mx-0 sm:mx-6 mb-0 sm:mb-6 mt-0 rounded-none sm:rounded-3xl border-t sm:border border-slate-200 shadow-sm overflow-hidden flex flex-col relative z-0"
     >
-      <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 custom-scrollbar">
+      <div #portalContent tabindex="-1" class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 custom-scrollbar">
         @if (state.hasLoadError()) {
         <p role="alert" class="mb-4 text-red-700">
           No se pudieron cargar los datos del portal.
@@ -691,3 +720,24 @@ state.activityFilterType; @let openMenus = state.openMenus; @let navigationView
   </main>
 </div>
 
+<dialog
+  #logoutConfirmation
+  aria-labelledby="logout-confirmation-heading"
+  class="portal-exit-dialog rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 shadow-xl sm:p-6"
+>
+  <h2 id="logout-confirmation-heading" class="text-lg font-bold">¿Estás seguro de cerrar sesión?</h2>
+  <div class="mt-5 flex flex-wrap justify-end gap-2">
+    <button
+      type="button"
+      (click)="logoutConfirmation.close()"
+      class="min-h-[44px] rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+    >Cancelar</button>
+    <button
+      type="button"
+      routerLink="/"
+      [replaceUrl]="true"
+      (click)="logoutConfirmation.close()"
+      class="min-h-[44px] rounded-xl bg-red-700 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800"
+    >Sí, cerrar sesión</button>
+  </div>
+</dialog>

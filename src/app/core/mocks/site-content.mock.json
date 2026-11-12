@@ -13,9 +13,7 @@
   "aboutText": "Somos un círculo de estudio fundado en Ciudad de México en 2016 por Erin Ahra. Reunimos investigación, práctica espiritual y formación en torno al ocultismo, la brujería tradicional, la hechicería y la magia ritual.",
   "nav": [
     { "label": "Inicio", "route": "/" },
-    { "label": "Nuestra Casa", "route": "/", "fragment": "nuestra-casa" },
-    { "label": "Calendario de Actividades", "route": "/", "fragment": "calendario" },
-    { "label": "Últimas Notas", "route": "/", "fragment": "notas" }
+    { "label": "Nuestra Casa", "route": "/", "fragment": "nuestra-casa" }
   ],
   "paths": [
     { "id": "astrologia", "icon": "astrologia", "title": "Astrología", "description": "El cielo y sus correspondencias." },

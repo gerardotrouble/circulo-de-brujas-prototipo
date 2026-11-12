@@ -492,8 +492,22 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
+:where(html:has(cb-portal)) .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 :where(html:has(cb-portal)) .pointer-events-none {
   pointer-events: none;
+}
+:where(html:has(cb-portal)) .pointer-events-auto {
+  pointer-events: auto;
 }
 :where(html:has(cb-portal)) .fixed {
   position: fixed;
@@ -635,6 +649,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .mt-6 {
   margin-top: 1.5rem;
 }
+:where(html:has(cb-portal)) .mt-7 {
+  margin-top: 1.75rem;
+}
 :where(html:has(cb-portal)) .mt-8 {
   margin-top: 2rem;
 }
@@ -659,6 +676,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .inline-block {
   display: inline-block;
 }
+:where(html:has(cb-portal)) .inline {
+  display: inline;
+}
 :where(html:has(cb-portal)) .flex {
   display: flex;
 }
@@ -680,11 +700,20 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .aspect-\[4\/5\] {
   aspect-ratio: 4/5;
 }
+:where(html:has(cb-portal)) .aspect-square {
+  aspect-ratio: 1 / 1;
+}
 :where(html:has(cb-portal)) .h-10 {
   height: 2.5rem;
 }
+:where(html:has(cb-portal)) .h-11 {
+  height: 2.75rem;
+}
 :where(html:has(cb-portal)) .h-12 {
   height: 3rem;
+}
+:where(html:has(cb-portal)) .h-2 {
+  height: 0.5rem;
 }
 :where(html:has(cb-portal)) .h-2\.5 {
   height: 0.625rem;
@@ -692,8 +721,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .h-20 {
   height: 5rem;
 }
-:where(html:has(cb-portal)) .h-32 {
-  height: 8rem;
+:where(html:has(cb-portal)) .h-24 {
+  height: 6rem;
 }
 :where(html:has(cb-portal)) .h-4 {
   height: 1rem;
@@ -731,11 +760,17 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .w-10 {
   width: 2.5rem;
 }
+:where(html:has(cb-portal)) .w-11 {
+  width: 2.75rem;
+}
 :where(html:has(cb-portal)) .w-12 {
   width: 3rem;
 }
 :where(html:has(cb-portal)) .w-16 {
   width: 4rem;
+}
+:where(html:has(cb-portal)) .w-2 {
+  width: 0.5rem;
 }
 :where(html:has(cb-portal)) .w-2\.5 {
   width: 0.625rem;
@@ -743,11 +778,20 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .w-20 {
   width: 5rem;
 }
-:where(html:has(cb-portal)) .w-32 {
-  width: 8rem;
+:where(html:has(cb-portal)) .w-24 {
+  width: 6rem;
 }
 :where(html:has(cb-portal)) .w-4 {
   width: 1rem;
+}
+:where(html:has(cb-portal)) .w-44 {
+  width: 11rem;
+}
+:where(html:has(cb-portal)) .w-56 {
+  width: 14rem;
+}
+:where(html:has(cb-portal)) .w-6 {
+  width: 1.5rem;
 }
 :where(html:has(cb-portal)) .w-72 {
   width: 18rem;
@@ -773,6 +817,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .min-w-0 {
   min-width: 0px;
 }
+:where(html:has(cb-portal)) .min-w-12 {
+  min-width: 3rem;
+}
 :where(html:has(cb-portal)) .min-w-\[150px\] {
   min-width: 150px;
 }
@@ -785,9 +832,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .min-w-\[44px\] {
   min-width: 44px;
 }
-:where(html:has(cb-portal)) .min-w-\[560px\] {
-  min-width: 560px;
-}
 :where(html:has(cb-portal)) .min-w-\[800px\] {
   min-width: 800px;
 }
@@ -797,8 +841,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .max-w-52 {
   max-width: 13rem;
 }
+:where(html:has(cb-portal)) .max-w-60 {
+  max-width: 15rem;
+}
 :where(html:has(cb-portal)) .max-w-6xl {
   max-width: 72rem;
+}
+:where(html:has(cb-portal)) .max-w-\[calc\(100\%\+2rem\)\] {
+  max-width: calc(100% + 2rem);
 }
 :where(html:has(cb-portal)) .max-w-\[calc\(100vw-16px\)\] {
   max-width: calc(100vw - 16px);
@@ -821,9 +871,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .border-collapse {
   border-collapse: collapse;
 }
-:where(html:has(cb-portal)) .origin-top-right {
-  transform-origin: top right;
-}
 :where(html:has(cb-portal)) .-translate-x-full {
   --tw-translate-x: -100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -840,24 +887,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-:where(html:has(cb-portal)) .scale-100 {
-  --tw-scale-x: 1;
-  --tw-scale-y: 1;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-:where(html:has(cb-portal)) .scale-95 {
-  --tw-scale-x: .95;
-  --tw-scale-y: .95;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
 :where(html:has(cb-portal)) .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 :where(html:has(cb-portal)) .cursor-pointer {
   cursor: pointer;
-}
-:where(html:has(cb-portal)) .list-disc {
-  list-style-type: disc;
 }
 :where(html:has(cb-portal)) .appearance-none {
   appearance: none;
@@ -882,6 +916,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .items-center {
   align-items: center;
+}
+:where(html:has(cb-portal)) .justify-end {
+  justify-content: flex-end;
 }
 :where(html:has(cb-portal)) .justify-center {
   justify-content: center;
@@ -938,20 +975,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
-:where(html:has(cb-portal)) .space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
-}
 :where(html:has(cb-portal)) .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-:where(html:has(cb-portal)) .space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 :where(html:has(cb-portal)) .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
@@ -960,7 +987,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
-  border-color: rgb(241 245 249 / var(--tw-divide-opacity, 1));
+  border-color: rgb(var(--portal-slate-100, 241 245 249) / var(--tw-divide-opacity, 1));
 }
 :where(html:has(cb-portal)) .self-center {
   align-self: center;
@@ -981,6 +1008,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .whitespace-nowrap {
   white-space: nowrap;
+}
+:where(html:has(cb-portal)) .break-words {
+  overflow-wrap: break-word;
 }
 :where(html:has(cb-portal)) .rounded {
   border-radius: 0.25rem;
@@ -1008,6 +1038,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .rounded-xl {
   border-radius: 0.75rem;
+}
+:where(html:has(cb-portal)) .rounded-b-2xl {
+  border-bottom-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+:where(html:has(cb-portal)) .rounded-t-2xl {
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
 :where(html:has(cb-portal)) .border {
   border-width: 1px;
@@ -1050,38 +1088,34 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .border-amber-200 {
   --tw-border-opacity: 1;
-  border-color: rgb(253 230 138 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-amber-200, 253 230 138) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .border-green-200 {
   --tw-border-opacity: 1;
-  border-color: rgb(187 247 208 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-green-200, 187 247 208) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .border-red-100 {
   --tw-border-opacity: 1;
-  border-color: rgb(254 226 226 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-red-100, 254 226 226) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .border-red-200 {
   --tw-border-opacity: 1;
-  border-color: rgb(254 202 202 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-red-200, 254 202 202) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .border-slate-100 {
   --tw-border-opacity: 1;
-  border-color: rgb(241 245 249 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-slate-100, 241 245 249) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .border-slate-200 {
   --tw-border-opacity: 1;
-  border-color: rgb(226 232 240 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-slate-200, 226 232 240) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .border-slate-200\/60 {
-  border-color: rgb(226 232 240 / 0.6);
-}
-:where(html:has(cb-portal)) .border-slate-50 {
-  --tw-border-opacity: 1;
-  border-color: rgb(248 250 252 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-slate-200, 226 232 240) / 0.6);
 }
 :where(html:has(cb-portal)) .border-white {
   --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-white, 255 255 255) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-\[\#4A3B4A\] {
   --tw-bg-opacity: 1;
@@ -1105,51 +1139,54 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .bg-amber-50 {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 251 235 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-amber-50, 255 251 235) / var(--tw-bg-opacity, 1));
+}
+:where(html:has(cb-portal)) .bg-current {
+  background-color: currentColor;
 }
 :where(html:has(cb-portal)) .bg-green-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-green-100, 220 252 231) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-green-50 {
   --tw-bg-opacity: 1;
-  background-color: rgb(240 253 244 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-green-50, 240 253 244) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-red-50 {
   --tw-bg-opacity: 1;
-  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-red-50, 254 242 242) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-red-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
 }
-:where(html:has(cb-portal)) .bg-red-600 {
+:where(html:has(cb-portal)) .bg-red-700 {
   --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-slate-100 {
   --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-slate-100, 241 245 249) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-slate-100\/80 {
-  background-color: rgb(241 245 249 / 0.8);
+  background-color: rgb(var(--portal-slate-100, 241 245 249) / 0.8);
 }
 :where(html:has(cb-portal)) .bg-slate-200 {
   --tw-bg-opacity: 1;
-  background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-slate-200, 226 232 240) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-slate-200\/60 {
-  background-color: rgb(226 232 240 / 0.6);
+  background-color: rgb(var(--portal-slate-200, 226 232 240) / 0.6);
 }
 :where(html:has(cb-portal)) .bg-slate-50 {
   --tw-bg-opacity: 1;
-  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-slate-50, 248 250 252) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-slate-50\/50 {
-  background-color: rgb(248 250 252 / 0.5);
+  background-color: rgb(var(--portal-slate-50, 248 250 252) / 0.5);
 }
 :where(html:has(cb-portal)) .bg-slate-50\/80 {
-  background-color: rgb(248 250 252 / 0.8);
+  background-color: rgb(var(--portal-slate-50, 248 250 252) / 0.8);
 }
 :where(html:has(cb-portal)) .bg-slate-900 {
   --tw-bg-opacity: 1;
@@ -1163,13 +1200,13 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .bg-white {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-white, 255 255 255) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .bg-white\/60 {
-  background-color: rgb(255 255 255 / 0.6);
+  background-color: rgb(var(--portal-white, 255 255 255) / 0.6);
 }
 :where(html:has(cb-portal)) .bg-white\/90 {
-  background-color: rgb(255 255 255 / 0.9);
+  background-color: rgb(var(--portal-white, 255 255 255) / 0.9);
 }
 :where(html:has(cb-portal)) .bg-gradient-to-l {
   background-image: linear-gradient(to left, var(--tw-gradient-stops));
@@ -1220,8 +1257,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 :where(html:has(cb-portal)) .from-white {
-  --tw-gradient-from: #fff var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-from: rgb(var(--portal-white, 255 255 255) / 1) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(var(--portal-white, 255 255 255) / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 :where(html:has(cb-portal)) .to-\[\#111827\] {
@@ -1372,14 +1409,8 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .pl-11 {
   padding-left: 2.75rem;
 }
-:where(html:has(cb-portal)) .pl-5 {
-  padding-left: 1.25rem;
-}
 :where(html:has(cb-portal)) .pl-9 {
   padding-left: 2.25rem;
-}
-:where(html:has(cb-portal)) .pr-1 {
-  padding-right: 0.25rem;
 }
 :where(html:has(cb-portal)) .pr-2 {
   padding-right: 0.5rem;
@@ -1525,43 +1556,43 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .text-amber-700 {
   --tw-text-opacity: 1;
-  color: rgb(180 83 9 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-amber-700, 180 83 9) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-green-700 {
   --tw-text-opacity: 1;
-  color: rgb(21 128 61 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-green-700, 21 128 61) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-red-600 {
   --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-red-600, 220 38 38) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-red-700 {
   --tw-text-opacity: 1;
-  color: rgb(185 28 28 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-red-700, 185 28 28) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-slate-400 {
   --tw-text-opacity: 1;
-  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-400, 148 163 184) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-slate-500 {
   --tw-text-opacity: 1;
-  color: rgb(100 116 139 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-500, 100 116 139) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-slate-600 {
   --tw-text-opacity: 1;
-  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-600, 71 85 105) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-slate-700 {
   --tw-text-opacity: 1;
-  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-700, 51 65 85) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-slate-800 {
   --tw-text-opacity: 1;
-  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-800, 30 41 59) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-slate-900 {
   --tw-text-opacity: 1;
-  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-900, 15 23 42) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .text-white {
   --tw-text-opacity: 1;
@@ -1569,6 +1600,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .text-white\/20 {
   color: rgb(255 255 255 / 0.2);
+}
+:where(html:has(cb-portal)) .underline {
+  text-decoration-line: underline;
+}
+:where(html:has(cb-portal)) .underline-offset-2 {
+  text-underline-offset: 2px;
 }
 :where(html:has(cb-portal)) .opacity-0 {
   opacity: 0;
@@ -1613,6 +1650,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
+:where(html:has(cb-portal)) .ring-2 {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+:where(html:has(cb-portal)) .ring-inset {
+  --tw-ring-inset: inset;
+}
+:where(html:has(cb-portal)) .ring-\[\#6F516F\] {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(111 81 111 / var(--tw-ring-opacity, 1));
+}
 :where(html:has(cb-portal)) .ring-\[\#6F516F\]\/20 {
   --tw-ring-color: rgb(111 81 111 / 0.2);
 }
@@ -1636,6 +1685,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .transition-opacity {
   transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+:where(html:has(cb-portal)) .transition-shadow {
+  transition-property: box-shadow;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1675,6 +1729,84 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   :where(html:has(cb-portal)) .animate-in.duration-500 {
     animation-duration: 500ms;
   }
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] {
+  color-scheme: dark;
+  --portal-white: 31 27 36;
+  --portal-slate-50: 39 34 46;
+  --portal-slate-100: 22 19 28;
+  --portal-slate-200: 58 51 68;
+  --portal-slate-300: 85 74 97;
+  --portal-slate-400: 161 150 171;
+  --portal-slate-500: 178 168 187;
+  --portal-slate-600: 198 188 206;
+  --portal-slate-700: 218 207 224;
+  --portal-slate-800: 232 224 237;
+  --portal-slate-900: 246 239 249;
+  --portal-amber-50: 51 38 25;
+  --portal-amber-200: 100 74 44;
+  --portal-amber-700: 249 201 133;
+  --portal-green-50: 28 46 38;
+  --portal-green-100: 34 56 45;
+  --portal-green-200: 56 93 74;
+  --portal-green-700: 156 224 183;
+  --portal-red-50: 56 32 41;
+  --portal-red-100: 72 38 50;
+  --portal-red-200: 108 57 75;
+  --portal-red-600: 255 171 182;
+  --portal-red-700: 255 179 190;
+  --portal-accent-text: #dcc0e2;
+  --portal-accent-title: #f1deef;
+}
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] :is(
+  .text-\[\#6F516F\],
+  .hover\:text-\[\#6F516F\]:hover,
+  .group:hover .group-hover\:text-\[\#6F516F\]
+) {
+  color: var(--portal-accent-text);
+}
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] .text-\[\#3a2b3a\] {
+  color: var(--portal-accent-title);
+}
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] :is(.text-\[\#8b704c\], .text-\[\#8C6D4A\]) {
+  color: #ebc696;
+}
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] .text-\[\#4A5D7C\] { color: #adc5ec; }
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] .text-\[\#4B5563\] { color: rgb(var(--portal-slate-600)); }
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] .text-\[\#8C4A57\] { color: #f6b5c5; }
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] :is(.border-\[\#eae2ea\], .border-\[\#eee7ee\]) {
+  border-color: rgb(var(--portal-slate-200));
+}
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] .bg-\[\#6F516F\]\/15 {
+  background-color: rgb(177 123 187 / 22%);
+}
+
+:where(html:has(cb-portal)) cb-portal[data-theme="dark"] .ring-\[\#6F516F\] {
+  --tw-ring-color: var(--portal-accent-text);
+}
+
+:where(html:has(cb-portal)) .portal-card-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  content: "";
+}
+
+:where(html:has(cb-portal)) .portal-card-link:focus-visible::after {
+  outline: 2px solid var(--portal-accent-text, #6f516f);
+  outline-offset: -3px;
+}
+
+:where(html:has(cb-portal)) .portal-card-secondary {
+  position: relative;
+  z-index: 20;
+}
 @keyframes portal-enter {
   from {
     opacity: var(--portal-opacity, 1);
@@ -1686,10 +1818,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .selection\:bg-\[\#6F516F\]\/20::selection {
   background-color: rgb(111 81 111 / 0.2);
-}
-:where(html:has(cb-portal)) .hover\:-translate-y-0\.5:hover {
-  --tw-translate-y: -0.125rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 :where(html:has(cb-portal)) .hover\:-translate-y-1:hover {
   --tw-translate-y: -0.25rem;
@@ -1704,15 +1832,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .hover\:border-slate-300:hover {
   --tw-border-opacity: 1;
-  border-color: rgb(203 213 225 / var(--tw-border-opacity, 1));
+  border-color: rgb(var(--portal-slate-300, 203 213 225) / var(--tw-border-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:bg-\[\#2C242C\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(44 36 44 / var(--tw-bg-opacity, 1));
-}
-:where(html:has(cb-portal)) .hover\:bg-\[\#5a425a\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(90 66 90 / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:bg-\[\#6F516F\]\/10:hover {
   background-color: rgb(111 81 111 / 0.1);
@@ -1720,17 +1844,17 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 :where(html:has(cb-portal)) .hover\:bg-\[\#6F516F\]\/5:hover {
   background-color: rgb(111 81 111 / 0.05);
 }
-:where(html:has(cb-portal)) .hover\:bg-red-700:hover {
+:where(html:has(cb-portal)) .hover\:bg-red-800:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+  background-color: rgb(153 27 27 / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:bg-slate-100:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-slate-100, 241 245 249) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:bg-slate-50:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1));
+  background-color: rgb(var(--portal-slate-50, 248 250 252) / var(--tw-bg-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:text-\[\#6F516F\]:hover {
   --tw-text-opacity: 1;
@@ -1738,23 +1862,23 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .hover\:text-red-600:hover {
   --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-red-600, 220 38 38) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:text-slate-600:hover {
   --tw-text-opacity: 1;
-  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-600, 71 85 105) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:text-slate-700:hover {
   --tw-text-opacity: 1;
-  color: rgb(51 65 85 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-700, 51 65 85) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:text-slate-800:hover {
   --tw-text-opacity: 1;
-  color: rgb(30 41 59 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-800, 30 41 59) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:text-slate-900:hover {
   --tw-text-opacity: 1;
-  color: rgb(15 23 42 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-900, 15 23 42) / var(--tw-text-opacity, 1));
 }
 :where(html:has(cb-portal)) .hover\:underline:hover {
   text-decoration-line: underline;
@@ -1789,6 +1913,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .focus\:ring-\[\#6F516F\]\/20:focus {
   --tw-ring-color: rgb(111 81 111 / 0.2);
+}
+:where(html:has(cb-portal)) .focus-visible\:ring-2:focus-visible {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+:where(html:has(cb-portal)) .focus-visible\:ring-inset:focus-visible {
+  --tw-ring-inset: inset;
+}
+:where(html:has(cb-portal)) .focus-visible\:ring-\[\#6F516F\]:focus-visible {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(111 81 111 / var(--tw-ring-opacity, 1));
 }
 :where(html:has(cb-portal)) .disabled\:cursor-not-allowed:disabled {
   cursor: not-allowed;
@@ -1825,7 +1961,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 }
 :where(html:has(cb-portal)) .group:hover .group-hover\:text-slate-600 {
   --tw-text-opacity: 1;
-  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
+  color: rgb(var(--portal-slate-600, 71 85 105) / var(--tw-text-opacity, 1));
 }
 @media (min-width: 640px) {
 
@@ -1836,6 +1972,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
   :where(html:has(cb-portal)) .sm\:mb-6 {
     margin-bottom: 1.5rem;
+  }
+
+  :where(html:has(cb-portal)) .sm\:ml-auto {
+    margin-left: auto;
   }
 
   :where(html:has(cb-portal)) .sm\:inline-block {
@@ -1858,12 +1998,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     width: 16rem;
   }
 
-  :where(html:has(cb-portal)) .sm\:w-72 {
-    width: 18rem;
-  }
-
   :where(html:has(cb-portal)) .sm\:w-auto {
     width: auto;
+  }
+
+  :where(html:has(cb-portal)) .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   :where(html:has(cb-portal)) .sm\:flex-row {
@@ -1955,7 +2095,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
   :where(html:has(cb-portal)) .md\:border-slate-100 {
     --tw-border-opacity: 1;
-    border-color: rgb(241 245 249 / var(--tw-border-opacity, 1));
+    border-color: rgb(var(--portal-slate-100, 241 245 249) / var(--tw-border-opacity, 1));
   }
 
   :where(html:has(cb-portal)) .md\:border-transparent {
@@ -1991,11 +2131,11 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
   :where(html:has(cb-portal)) .md\:hover\:bg-red-50:hover {
     --tw-bg-opacity: 1;
-    background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+    background-color: rgb(var(--portal-red-50, 254 242 242) / var(--tw-bg-opacity, 1));
   }
 
   :where(html:has(cb-portal)) .md\:hover\:bg-slate-200\/50:hover {
-    background-color: rgb(226 232 240 / 0.5);
+    background-color: rgb(var(--portal-slate-200, 226 232 240) / 0.5);
   }
 }
 @media (min-width: 1024px) {
@@ -2016,6 +2156,18 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     width: 8rem;
   }
 
+  :where(html:has(cb-portal)) .lg\:w-64 {
+    width: 16rem;
+  }
+
+  :where(html:has(cb-portal)) .lg\:w-auto {
+    width: auto;
+  }
+
+  :where(html:has(cb-portal)) .lg\:shrink-0 {
+    flex-shrink: 0;
+  }
+
   :where(html:has(cb-portal)) .lg\:grid-cols-12 {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
@@ -2030,6 +2182,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
   :where(html:has(cb-portal)) .lg\:flex-row {
     flex-direction: row;
+  }
+
+  :where(html:has(cb-portal)) .lg\:items-end {
+    align-items: flex-end;
   }
 
   :where(html:has(cb-portal)) .lg\:gap-10 {

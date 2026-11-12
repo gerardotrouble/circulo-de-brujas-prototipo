@@ -9,7 +9,7 @@ const build = new URL('dist/circulo-de-brujas-prototipo/browser/', root);
 const types = {
   '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
   '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2',
+  '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.pdf': 'application/pdf',
 };
 
 let server;

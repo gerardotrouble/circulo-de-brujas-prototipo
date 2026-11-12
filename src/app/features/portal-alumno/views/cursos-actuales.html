@@ -7,9 +7,15 @@ currentItems = section.currentItems;
 <div
   class="animate-in fade-in slide-in-from-bottom-4 duration-500 flex flex-col min-h-full"
 >
+  @if (state.isActiveCoursesView()) {
+    <a routerLink="/portal-alumno"
+      class="mb-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-md text-sm font-medium text-slate-600 hover:text-[#6F516F] focus-visible:ring-2 focus-visible:ring-[#6F516F]">
+      <span aria-hidden="true">←</span> Volver a Inicio
+    </a>
+  }
   <header class="mb-6">
     <h1 class="text-2xl font-bold text-slate-900">
-      Tus Cursos y Actividades Actuales
+      {{ state.isActiveCoursesView() ? 'Tus cursos activos' : 'Tus Cursos y Actividades Actuales' }}
     </h1>
     <p class="text-slate-500 mt-1">
       Revisa el estatus de tus clases e inscripciones.
@@ -40,6 +46,7 @@ currentItems = section.currentItems;
         [formControl]="state.searchQueryControl"
       />
     </div>
+    @if (!state.isActiveCoursesView()) {
     <div class="relative min-w-[200px]">
       <svg
         aria-hidden="true"
@@ -84,13 +91,13 @@ currentItems = section.currentItems;
         <path d="m6 9 6 6 6-6" />
       </svg>
     </div>
+    }
   </div>
   @if (currentItems.length > 0) {
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-4">
     @for (item of currentItems; track item.id) {
     <div
-      (click)="openActivity(item)"
-      class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group flex flex-col cursor-pointer"
+      class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group relative flex flex-col"
     >
       @if (item.cover) {
       <img
@@ -108,12 +115,12 @@ currentItems = section.currentItems;
           >{{ item.badge }}</span
         >
         <h3
-          class="font-bold text-lg text-slate-800 mb-1 group-hover:text-[#6F516F] transition-colors relative z-10 line-clamp-1"
+          class="font-bold text-lg text-slate-800 mb-1 group-hover:text-[#6F516F] transition-colors line-clamp-1"
         >
-          {{ item.title }}
+          <a class="portal-card-link" [routerLink]="['/portal-alumno/cursos-actuales', item.id]" [state]="state.fromActivityList">{{ item.title }}</a>
         </h3>
         <div
-          class="flex items-center gap-1.5 text-xs font-medium text-slate-500 mb-3 relative z-10"
+          class="flex items-center gap-1.5 text-xs font-medium text-slate-500 mb-3"
         >
           <svg
             aria-hidden="true"
@@ -133,11 +140,12 @@ currentItems = section.currentItems;
           </svg>
           <span
             >Imparte:
-            <span
-              (click)="handleMaestroClick($event, item.instructor)"
-              class="text-[#6F516F] font-semibold hover:underline cursor-pointer"
-              >{{ item.instructor }}</span
-            >
+            @if (state.teacherFor(item.instructor); as teacher) {
+              <a [routerLink]="['/portal-alumno/maestros', teacher.id]" [state]="state.fromActivity"
+                class="portal-card-secondary text-[#6F516F] font-semibold underline underline-offset-2">{{ item.instructor }}</a>
+            } @else {
+              {{ item.instructor }}
+            }
           </span>
         </div>
         <div class="flex flex-wrap gap-2 mb-4 relative z-10">

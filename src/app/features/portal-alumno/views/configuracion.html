@@ -1,0 +1,178 @@
+<div class="max-w-6xl pb-6">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold text-slate-900">Configuración</h1>
+  </header>
+
+  <div class="settings-layout">
+    <div class="profile-column">
+      <section aria-label="Foto de perfil" class="settings-panel photo-panel">
+        <student-avatar class="w-56 max-w-full aspect-square" [photo]="student.profile().photo" />
+        <button class="secondary-button" type="button" (click)="openPhotoEditor()">Editar foto</button>
+      </section>
+
+      <a class="settings-panel regulations-link"
+        href="assets/documentos/reglamento-alumnos.pdf"
+        target="_blank"
+        rel="noopener"
+        aria-label="Reglamento del alumno, PDF, abre en otra pestaña">
+        <svg class="regulations-icon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+          <path d="M14 2v6h6M8 13h8m-8 4h8" />
+        </svg>
+        <span>
+          <strong class="regulations-title">Reglamento del alumno</strong>
+          <span class="regulations-format">Ver PDF</span>
+        </span>
+        <svg class="regulations-icon" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 17 7M7 7h10v10" />
+        </svg>
+      </a>
+    </div>
+
+    <section aria-labelledby="profile-name-heading" class="settings-panel">
+      <h2 id="profile-name-heading">Datos del alumno</h2>
+      <form [formGroup]="nameForm" (ngSubmit)="saveName()">
+        <fieldset class="name-options" aria-label="Preferencia de nombre">
+          <div class="field">
+            <label id="legal-name-label" for="legal-name">Nombre</label>
+            <div class="name-row">
+              <input id="legal-name" type="text" [value]="student.enrollment.legalName" disabled />
+              <input type="radio" name="displayName" formControlName="displayName" value="legal" aria-labelledby="legal-name-label" />
+            </div>
+          </div>
+          <div class="field">
+            <label id="magical-name-label" for="magical-name">Nombre mágico</label>
+            <div class="name-row">
+              <div class="magical-name" [class.has-edit-icon]="nameForm.controls.magicalName.disabled">
+                <input #magicalName id="magical-name" type="text" formControlName="magicalName" maxlength="60" />
+                @if (nameForm.controls.magicalName.disabled) {
+                  <button class="edit-name-icon" type="button" aria-label="Editar nombre mágico"
+                    (click)="editMagicalName(magicalName)">
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M13.5 6.5l4 4M4 20l4.5-1 11-11a2.8 2.8 0 0 0-4-4l-11 11L4 20Z" />
+                    </svg>
+                  </button>
+                }
+              </div>
+              <input type="radio" name="displayName" formControlName="displayName" value="magical" aria-labelledby="magical-name-label" />
+            </div>
+          </div>
+        </fieldset>
+
+        @if (nameChanged()) {
+          <button class="primary-button" type="submit">Guardar cambio</button>
+          @if (nameError()) {
+            <p class="mt-3 text-sm text-red-700" role="alert">{{ nameError() }}</p>
+          }
+        }
+      </form>
+
+      <h3 class="enrollment-heading">Datos de inscripción</h3>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="field">
+          <label for="registration">Matrícula</label>
+          <input id="registration" type="text" [value]="student.enrollment.registration" disabled />
+        </div>
+        <div class="field">
+          <label for="student-level">Nivel</label>
+          <input id="student-level" type="text" [value]="student.enrollment.level" disabled />
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<dialog #photoEditor aria-labelledby="editor-heading" (close)="discardDraft()">
+  <h2 id="editor-heading">Ajustar foto de perfil</h2>
+  @if (draft(); as image) {
+    @if (photoSize(); as photo) {
+      <p id="crop-instructions" class="mt-2 text-sm text-slate-600">
+        Mueve el círculo sobre la foto. También puedes usar las flechas del teclado.
+      </p>
+      <div
+        #cropSurface
+        class="crop-surface"
+        role="group"
+        aria-label="Encuadre de la foto"
+        aria-describedby="crop-instructions"
+        tabindex="0"
+        (keydown)="moveCropWithKey($event)"
+        (pointerdown)="startDrag($event, cropSurface)"
+        (pointermove)="moveDrag($event, cropSurface)"
+        (pointerup)="stopDrag($event)"
+        (pointercancel)="stopDrag($event)"
+        (lostpointercapture)="stopDrag($event)"
+      >
+        <img
+          [src]="image.src"
+          alt=""
+          draggable="false"
+          [style.width.%]="photo.width * 100"
+          [style.height.%]="photo.height * 100"
+        />
+        <div class="crop-guide" aria-hidden="true"
+          [style.width.%]="cropDiameter() * 100"
+          [style.left.%]="50 + crop().x * 100"
+          [style.top.%]="50 + crop().y * 100"
+        ></div>
+      </div>
+
+      <div class="zoom-control">
+        <label for="photo-zoom">Zoom</label>
+        <input
+          #zoom
+          id="photo-zoom"
+          type="range"
+          [min]="minZoom()"
+          max="3"
+          step="any"
+          [value]="crop().zoom"
+          (input)="setZoom(zoom.valueAsNumber)"
+        />
+        <button class="text-button" type="button" (click)="resetCrop()">Restablecer encuadre</button>
+      </div>
+    }
+  }
+  <input #fileInput aria-label="Archivo de foto de perfil" type="file" accept="image/jpeg,image/png,image/webp"
+    hidden (change)="choosePhoto(fileInput)" />
+  <button class="secondary-button choose-photo" type="button" [disabled]="loadingPhoto()" (click)="fileInput.click()">
+    {{ loadingPhoto() ? "Abriendo foto…" : "Elegir foto" }}
+  </button>
+  @if (photoError()) {
+    <p class="mt-2 text-sm text-red-700" role="alert">{{ photoError() }}</p>
+  }
+
+  <div class="dialog-actions">
+    <button class="secondary-button" type="button" (click)="photoEditor.close()">Cancelar</button>
+    @if (photoChanged() && !loadingPhoto()) {
+      <button class="primary-button" type="button" (click)="requestConfirmation()">Guardar foto</button>
+    }
+  </div>
+</dialog>
+
+<div class="save-status" role="status">
+  @if (saveStatus(); as message) {
+    <div class="save-toast">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <path d="m8.5 12 2.5 2.5 4.5-5" />
+      </svg>
+      {{ message }}
+    </div>
+  }
+</div>
+
+<dialog #photoConfirmation aria-labelledby="confirmation-heading">
+  <h2 id="confirmation-heading">¿Estás segura de cambiar la foto de perfil?</h2>
+  @if (confirmError()) {
+    <p class="mt-3 text-sm text-red-700" role="alert">{{ confirmError() }}</p>
+  }
+  <div class="dialog-actions">
+    <button class="secondary-button" type="button" (click)="photoConfirmation.close()">Seguir editando</button>
+    <button class="primary-button" type="button" (click)="confirmPhoto()">Sí, cambiar foto</button>
+  </div>
+</dialog>

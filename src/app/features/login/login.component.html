@@ -12,7 +12,7 @@
         <a class="login__back" routerLink="/">← Volver al inicio</a>
         <div class="form__intro">
           <h1 class="form__title">Bienvenida a casa</h1>
-          <p class="form__lead">Ingresa tus credenciales para continuar con tu estudio y ritual.</p>
+          <p class="form__lead">Estás en una demostración. Puedes entrar con los campos vacíos.</p>
         </div>
 
         <div class="field">
@@ -51,39 +51,20 @@
           </div>
         </div>
 
-        <div class="form__row">
-          <label class="check">
-            <input class="check__input" type="checkbox" formControlName="remember" />
-            <span class="check__box" aria-hidden="true">
-              <cb-icon name="check" [size]="14" [stroke]="3" />
-            </span>
-            <span class="check__text">Recordarme</span>
-          </label>
-          <a class="form__forgot" href="#" (click)="$event.preventDefault()">¿Olvidaste tu contraseña?</a>
-        </div>
-
         <button class="cb-btn form__submit" type="submit">
           Entrar
           <cb-icon name="arrow-right" [size]="18" />
         </button>
 
-        <p class="form__help">
-          ¿Necesitas ayuda?
-          <a href="#" (click)="$event.preventDefault()">Contactar</a>
-        </p>
       </form>
     </div>
 
     <footer class="foot">
       <span>© {{ year }} Casa Círculo de Brujas</span>
-      <nav class="foot__links" aria-label="Legal">
-        <a href="#" (click)="$event.preventDefault()">Privacidad</a>
-        <a href="#" (click)="$event.preventDefault()">Términos</a>
-        <span class="foot__lang">
-          <cb-icon name="globe" [size]="14" [stroke]="1.5" />
-          Español
-        </span>
-      </nav>
+      <span class="foot__lang">
+        <cb-icon name="globe" [size]="14" [stroke]="1.5" />
+        Español
+      </span>
     </footer>
 
   </section>

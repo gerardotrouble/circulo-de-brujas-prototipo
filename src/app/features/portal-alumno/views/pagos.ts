@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
+import { RouterLink } from "@angular/router";
 import { PortalArt } from "../../../shared/portal-art";
 import { StudentFacade } from "../state/student.facade";
 
@@ -7,7 +8,7 @@ import { StudentFacade } from "../state/student.facade";
   standalone: true,
   selector: "student-pagos",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, PortalArt],
+  imports: [ReactiveFormsModule, PortalArt, RouterLink],
   templateUrl: "./pagos.html",
   styles: [":host { display: contents; }"],
 })

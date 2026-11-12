@@ -60,11 +60,17 @@
               "sourceMap": true
             },
             "github-pages": {
-              "baseHref": "/circulo-de-brujas-prototipo/",
+              "baseHref": "./",
               "outputPath": {
                 "base": "docs",
                 "browser": ""
-              }
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/app/route-location.ts",
+                  "with": "src/app/route-location.pages.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

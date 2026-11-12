@@ -2,6 +2,16 @@
 
 Aplicación Angular de Casa Círculo de Brujas. Reúne la página pública, el formulario de ingreso y el Portal del Alumno en una sola aplicación.
 
+## Publicar en GitHub Pages
+
+1. Sube esta copia a la rama `main` de un repositorio de GitHub. La carpeta `docs` incluye la versión lista para publicar.
+2. En el repositorio, abre **Settings → Pages**. Elige **Deploy from a branch**, selecciona `main` y `/docs`, y guarda.
+3. Cuando termine el despliegue, abre el enlace que aparece en **Settings → Pages**.
+
+Después de editar el proyecto, regenera `docs` con `npm ci` y `npm run build:pages` y sube los cambios. Las rutas internas de esta compilación usan `#/`, por ejemplo `#/portal-alumno/pagos`. Esto permite compartirlas y recargarlas en GitHub Pages.
+
+La publicación incluye la portada y el Portal del Alumno de demostración, que tiene acceso abierto.
+
 ## Ejecutar
 
 Requisitos: Node.js 22.12 o posterior dentro de la rama 22, o Node.js 24, y npm. El proyecto utiliza Angular y Angular CLI 20.3.35, TypeScript 5.9.3, RxJS 7.8 y Tailwind CSS 3.4 para el portal.
@@ -65,11 +75,3 @@ El comando inicia un servidor local temporal para probar la compilación de prod
 
 
 Consulta [VALIDACION.md](VALIDACION.md) para ver los resultados de compilación, pruebas y comparación visual.
-
-## Publicar en GitHub Pages
-
-La carpeta `docs` ya contiene el sitio compilado para el repositorio `circulo-de-brujas-prototipo`. Sube el contenido de esta carpeta de proyecto a la raíz de ese repositorio, incluidos `docs` y `package.json`.
-
-En GitHub abre **Settings → Pages**. Selecciona **Deploy from a branch**, la rama `main` y la carpeta `/docs`. Pulsa **Save**. Cuando se complete el despliegue, GitHub mostrará la dirección del sitio.
-
-Cuando cambies el código, ejecuta `npm ci` si todavía no instalaste las dependencias y luego `npm run build:pages`. Sube los cambios de código junto con la nueva carpeta `docs`. La compilación de Pages usa la ruta base `/circulo-de-brujas-prototipo/`. El archivo `404.html` inicia Angular si alguien abre o recarga una ruta interna directamente.
