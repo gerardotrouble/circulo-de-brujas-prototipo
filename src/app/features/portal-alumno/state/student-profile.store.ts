@@ -32,7 +32,7 @@ const storageKey = "circulo-de-brujas:student-profile:" + enrollment.registratio
 const defaults: ProfilePreferences = {
   magicalName: "",
   displayName: "legal",
-  photo: "assets/profiles/elyann.jpg",
+  photo: "assets/profiles/day.jpg",
 };
 
 @Injectable({ providedIn: "root" })
