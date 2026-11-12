@@ -29,10 +29,16 @@ const enrollment = {
 } as const;
 
 const storageKey = "circulo-de-brujas:student-profile:" + enrollment.registration;
+const demoPhotos: Readonly<Partial<Record<string, string>>> = {
+  "10293847": "assets/profiles/mariana-oliva.jpg",
+};
+const legacyPhotoSources: Readonly<Partial<Record<string, readonly string[]>>> = {
+  "10293847": ["assets/profiles/elyann.jpg", "assets/profiles/day.jpg"],
+};
 const defaults: ProfilePreferences = {
   magicalName: "",
   displayName: "legal",
-  photo: "assets/profiles/day.jpg",
+  photo: demoPhotos[enrollment.registration] ?? null,
 };
 
 @Injectable({ providedIn: "root" })
@@ -45,8 +51,7 @@ export class StudentProfileStore {
     const { magicalName, displayName } = this.profile();
     return displayName === "magical" ? magicalName : "";
   });
-  readonly visibleName = computed(() => this.selectedMagicalName() || enrollment.legalName);
-  readonly menuName = computed(() => this.selectedMagicalName() || `${firstName} ${firstSurname}`);
+  readonly portalName = computed(() => this.selectedMagicalName() || `${firstName} ${firstSurname}`);
   saveName(magicalName: string, displayName: DisplayName): void {
     this.save({ ...this.profile(), magicalName, displayName });
   }
@@ -77,7 +82,8 @@ export class StudentProfileStore {
           ? photo
           : defaults.photo,
         photoEdit: photo && edit && typeof edit.source === "string" &&
-          (edit.source === defaults.photo || edit.source.startsWith("data:image/jpeg;base64,")) &&
+          (edit.source === defaults.photo || legacyPhotoSources[enrollment.registration]?.includes(edit.source) ||
+            edit.source.startsWith("data:image/jpeg;base64,")) &&
           Number.isFinite(edit.crop?.zoom) && Number.isFinite(edit.crop?.x) && Number.isFinite(edit.crop?.y)
           ? edit
           : undefined,

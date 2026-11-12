@@ -73,9 +73,15 @@ test("guarda el nombre elegido y mantiene los datos de inscripción de solo lect
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/portal-alumno");
   await page.getByRole("button", { name: "Abrir menú" }).click();
+  const sidebarPhoto = page.locator("aside").getByRole("img", { name: "Foto de perfil" });
+  await expect(sidebarPhoto).toHaveAttribute("src", "assets/profiles/mariana-oliva.jpg");
   await page.getByRole("link", { name: "Configuración" }).click();
   await expect(page).toHaveURL("/portal-alumno/configuracion");
   await expect(page.getByRole("heading", { name: "Configuración" })).toBeInViewport();
+  const profilePhoto = page.getByRole("region", { name: "Foto de perfil" })
+    .getByRole("img", { name: "Foto de perfil" });
+  await expect(profilePhoto).toHaveAttribute("src", "assets/profiles/mariana-oliva.jpg");
+  await expect.poll(() => profilePhoto.evaluate(image => image.naturalWidth)).toBeGreaterThan(0);
   const details = page.getByRole("region", { name: "Datos del alumno" });
 
   for (const [label, value] of [
@@ -134,7 +140,7 @@ test("guarda el nombre elegido y mantiene los datos de inscripción de solo lect
   await legal.check();
   await save.click();
   await page.goto("/portal-alumno");
-  await expect(page.getByRole("heading", { name: "Qué gusto verte de nuevo, Mariana Dayami Oliva Ramos" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Qué gusto verte de nuevo, Mariana Oliva", exact: true })).toBeVisible();
 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/portal-alumno/configuracion");

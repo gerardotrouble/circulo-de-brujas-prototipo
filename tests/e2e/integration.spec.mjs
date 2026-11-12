@@ -17,7 +17,7 @@ test('conecta portada, login vacío y portal sin recargar el documento', async (
   await expect(page.getByLabel('Contraseña', { exact: true })).toHaveValue('');
   await page.getByRole('button', { name: 'Entrar' }).click();
   await expect(page).toHaveURL(/\/portal-alumno$/);
-  await expect(page.getByRole('heading', { name: 'Qué gusto verte de nuevo, Mariana Dayami Oliva Ramos' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Qué gusto verte de nuevo, Mariana Oliva', exact: true })).toBeVisible();
   await expect(page.locator('aside').getByRole('heading', { name: 'Mariana Oliva', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Pagos', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Pagos', exact: true }).click();
